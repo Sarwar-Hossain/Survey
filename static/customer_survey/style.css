@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+img {
+    margin: 0;
+    padding: 0;
+}
+
+input[type=email] {
+    background: #34353a;
+}
+
+.main-layout-bg .form-control::placeholder {
+    color: #fff;
+}
+
+.form-control {
+    border-radius: 0;
+    color: #fff;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.main-layout-bg {
+    background: #34353a;
+    min-height: 100vh;
+    width: 100%;
+    color: #fff;
+    position: relative;
+}
+
+
+.main-layout-bg .form-control {
+    margin-bottom: 20px;
+    background: #34353a;
+    color: #fff;
+
+}
+
+.main-layout-bg .login-btn:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.form-label {
+    text-transform: capitalize;
+    font-size: 15px;
+}
+
+.main-layout-bg .login-btn {
+    border-radius: 0;
+    text-transform: uppercase;
+    background: #C79439;
+    border-color: #C79439;
+    color: #34353a;
+    padding-left: 20px;
+    min-width: 140px;
+    padding-right: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/*login section start from here */
+.main-layout-bg .login-box {
+    width: 50%;
+    min-height: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 50px 50px;
+}
+
+.main-layout-bg .login-box .logo-box {
+    text-align: center;
+}
+
+.main-layout-bg .login-box .logo-box img {
+    max-width: 200px;
+    margin-bottom: 100px;
+
+}
+
+/*login section start from here */
+/*loyalty membership section start from here */
+.loyalty-membership {
+    margin: 50px 0;
+    background-size: 37% !important;
+    background: url("/static/icon-images/rise 11.png") no-repeat center center;
+    position: relative;
+
+}
+
+.loyalty-title-flex {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.loyalty-membership .loyalty-title-flex .title-box {
+    flex-basis: 70%;
+}
+
+.loyalty-membership .loyalty-title-flex .logo-box {
+    flex-basis: 30%;
+    text-align: right;
+}
+
+.loyalty-membership .loyalty-title-flex .title-box h3 {
+    text-transform: uppercase;
+    font-size: 20px;
+}
+
+.loyalty-membership .loyalty-title-flex .logo-box img {
+    max-width: 150px;
+}
+
+/*loyalty membership section end here */
+
+/*customer feedback start from here*/
+
+.customer-feedback .form-control {
+    width: 50%;
+    border-left: none;
+    border-top: none;
+    border-right: none;
+}
+
+.customer-feedback textarea {
+    border: 1px solid !important;
+    width: 100% !important;
+}
+
+/*customer feedback end here*/
+h1.thanks {
+    font-size: 80px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    line-height: 60px;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+p.sincere {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 20px;
+}
+
+.footer-logo {
+    text-align: center;
+    margin: 100px 0 0;
+}
+
+.footer-logo img {
+    max-width: 200px;
+}
+
+/*progress page design start form here*/
+.progress-main {
+    margin-top: 40px;
+}
+
+.progress-main .progress-box {
+    border: 1px solid #fff;
+    padding: 20px;
+    min-height: 100px;
+    margin-bottom: 20px;
+}
+
+.progress-main .progress-box h5 {
+    font-size: 15px;
+}
+
+.progress-main .progress-box .progress {
+    margin: 5px 0;
+    border-radius: 0;
+    min-height: 20px;
+    color: #fff;
+    background: none;
+    border: 1px solid #fff;
+}
+
+.progress-main .progress-box .progress .progress-bar {
+    background: #C99235;
+}
+
+.custom-progress {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.custom-progress .progress {
+    flex-basis: 80%;
+}
+
+.custom-progress .progress-counter {
+    flex-basis: 20%;
+    text-align: right;
+}

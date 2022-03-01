@@ -1,0 +1,112 @@
+{% extends 'customer_survey_app/base.html' %}
+{% load static %}
+{% block content %}
+<section class="main-layout-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="loyalty-membership">
+
+                    <div class="loyalty-title-flex">
+                        <div class="title-box">
+                            <h3>loyalty club membership form</h3>
+                        </div>
+                        <div class="logo-box">
+                            <img src="{% static 'icon-images/rise 2.png' %}" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                    <form action="">
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="" class="form-label">to be field by store</label>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Membership No:"
+                                           autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Invoice No:"
+                                           autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Category:"
+                                           autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Title:"
+                                           autocomplete="off">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="" class="form-label">to be field by customer</label>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="First Name:"
+                                           autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Last Name:"
+                                           autocomplete="off">
+                                </div>
+
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Email Address:"
+                                           autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Contact No."
+                                           autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Date Of Birth"
+                                           onfocus="(this.type='date')" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <select class="form-select form-control" aria-label="Default select example">
+                                        <option selected disabled>Marital Status:</option>
+                                        <option value="1">Single</option>
+                                        <option value="2">Married</option>
+                                        <option value="3">Widowed</option>
+                                        <option value="3">Divorced</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Address:"
+                                          id=""></textarea>
+                            </div>
+                        </div>
+                        <div class="w-100 text-center">
+                            <button class="btn btn-primary login-btn">submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

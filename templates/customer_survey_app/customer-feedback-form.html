@@ -1,0 +1,129 @@
+{% extends 'customer_survey_app/base.html' %}
+{% load static %}
+{% block content %}
+<section class="main-layout-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="loyalty-membership customer-feedback">
+
+                    <div class="loyalty-title-flex">
+                        <div class="title-box">
+                            <h3>customer feedback</h3>
+                        </div>
+                        <div class="logo-box">
+                            <img src="{% static 'icon-images/rise 2.png' %}" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                    <form action="">
+                        <div class="row">
+
+                            <div class="col-12">
+                                <level class="form-label d-block">1. Are You Pleased with the service you received?
+                                </level>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_1_y"
+                                           id="question_1_y" value="option1">
+                                    <label class="form-check-label" for="question_1_y">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_1_n"
+                                           id="question_1_n" value="option2">
+                                    <label class="form-check-label" for="question_1_n">No</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <level class="form-label d-block">2. our sales associates was,</level>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_2_y"
+                                           id="question_2_y" value="option1">
+                                    <label class="form-check-label" for="question_2_y">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_2_n"
+                                           id="question_2_n" value="option2">
+                                    <label class="form-check-label" for="question_2_n">No</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <level class="form-label d-block">3. are you satisfied with the products?</level>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_3_y"
+                                           id="question_3_y" value="option1">
+                                    <label class="form-check-label" for="question_3_y">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_3_n"
+                                           id="question_3_n" value="option2">
+                                    <label class="form-check-label" for="question_3_n">No</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <level class="form-label d-block">4. i would recommend RISE to my friends & family
+                                </level>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_4_y"
+                                           id="question_4_y" value="option1">
+                                    <label class="form-check-label" for="question_4_y">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_4_n"
+                                           id="question_4_n" value="option2">
+                                    <label class="form-check-label" for="question_4_n">No</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <level class="form-label d-block">5. was your overall experience on-time & pleasant?
+                                </level>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_5_y"
+                                           id="question_5_y" value="option1">
+                                    <label class="form-check-label" for="question_5_y">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_5_n"
+                                           id="question_5_n" value="option2">
+                                    <label class="form-check-label" for="question_5_n">No</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <level class="form-label d-block">6. what is your favourite color to wear?</level>
+                                <input type="text" name="question_6" id="question_6" class="form-control"
+                                       placeholder="">
+                            </div>
+
+                            <div class="col-12">
+                                <level class="form-label d-block">7. what is your usual clothing size?</level>
+                                <input type="text" name="question_7" id="question_7" class="form-control"
+                                       placeholder="">
+                            </div>
+
+                            <div class="col-12">
+                                <level class="form-label d-block">8. what suggestion do you have for improving the
+                                    product experience?
+                                </level>
+                                <input type="text" name="question_8" id="question_8" class="form-control"
+                                       placeholder="">
+                            </div>
+
+                            <div class="col-12">
+                                <level class="form-label d-block">9. please use the space provided for any
+                                    comments/recommendations
+                                </level>
+                                <textarea name="question_9" class="form-control" placeholder="Address"
+                                          id="question_9"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="w-100 text-center">
+                            <button class="btn btn-primary login-btn">submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -5,4 +5,4 @@ from django.http import HttpResponse
 # Create your views here.
 
 def login(request):
-    return render(request, 'customer_survey_app/test.html')
+    return render(request, 'customer_survey_app/customer-survey-report.html')
