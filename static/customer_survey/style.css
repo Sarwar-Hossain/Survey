@@ -5,6 +5,7 @@ body {
     padding: 0;
     box-sizing: border-box;
     font-family: 'Rajdhani', sans-serif;
+    position: relative;
 }
 
 * {
@@ -21,7 +22,7 @@ a:hover {
 }
 
 img {
-    margin: 0;
+    margin: 30px;
     padding: 0;
 }
 
@@ -222,4 +223,53 @@ p.sincere {
 .custom-progress .progress-counter {
     flex-basis: 20%;
     text-align: right;
+}
+
+/*Toast Messages*/
+
+#content {
+    position: absolute;
+    width: 300px;
+    right: 0;
+    top: 0;
+    z-index: 99999
+}
+
+#content .alert {
+    position: relative;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    text-align: center;
+}
+
+.msg {
+    -webkit-animation: fade-out 8s ease-out both;
+    animation: fade-out 8s ease-out both;
+}
+
+@-webkit-keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+.toastify{
+    background: rgb(251, 192, 45) !important;
+    right: 30px !important;
+    top: 20px !important;
+    width: 300px !important;
+
 }

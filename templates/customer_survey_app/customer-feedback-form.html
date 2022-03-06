@@ -15,9 +15,10 @@
                             <img src="{% static 'icon-images/rise 2.png' %}" alt="" class="img-fluid">
                         </div>
                     </div>
-                    <form action="">
+                    <form action="{% url 'thank_you' %}" method="post" id="feedback-form" name="feedback-form"
+                          enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div class="row">
-
                             <div class="col-12">
                                 <level class="form-label d-block">1. Are You Pleased with the service you received?
                                 </level>

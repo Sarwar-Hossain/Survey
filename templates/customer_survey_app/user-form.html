@@ -1,0 +1,83 @@
+{% extends 'customer_survey_app/base.html' %}
+{% load static %}
+{% block content %}
+
+{% if toast_mes %}
+<script>swal("{{toast_mes.toast_message}}");</script>
+{% endif %}
+
+<section class="main-layout-bg">
+    <div id="content">
+        {% include 'customer_survey_app/messages.html' %}
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="loyalty-membership">
+
+                    <div class="loyalty-title-flex">
+                        <div class="title-box">
+                            <h3>Create Shop User</h3>
+                        </div>
+                        <div class="logo-box">
+                            <img src="{% static 'icon-images/rise 2.png' %}" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                    <form method="post" id="user-form" name="user_form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" name="user_name" id="user_name" class="form-control"
+                                           placeholder="User Name:"
+                                           autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input type="number" name="mobile_no" id="mobile_no" class="form-control"
+                                           placeholder="Mobile No:"
+                                           autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input type="email" name="email" id="email" class="form-control"
+                                           placeholder="Shop Email_Id:"
+                                           autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input type="password" name="password" id="password" class="form-control"
+                                           placeholder="password:"
+                                           autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" name="shop_name" id="shop_name" class="form-control"
+                                           placeholder="Shop Name:"
+                                           autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input type="number" name="shop_id" id="shop_id" class="form-control"
+                                           placeholder="Shop Id:"
+                                           autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100 text-center">
+                            <button type="submit" class="btn btn-primary login-btn">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

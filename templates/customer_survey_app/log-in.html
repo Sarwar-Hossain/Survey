@@ -1,7 +1,16 @@
 {% extends 'customer_survey_app/base.html' %}
 {% load static %}
 {% block content %}
+
+{% if toast_mes %}
+<script>swal("{{toast_mes.toast_message}}");</script>
+{% endif %}
+
 <section class="main-layout-bg">
+    <div id="content">
+        {% include 'customer_survey_app/messages.html' %}
+    </div>
+    <div id='error_message'></div>
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -9,7 +18,9 @@
                     <div class="logo-box">
                         <img src="{% static 'icon-images/rise 2.png' %}" alt="" class="img-fluid">
                     </div>
-                    <form action="">
+                    <form method="post" id="login_form" name="login_form" enctype="multipart/form-data"
+                          onsubmit="return order_Type_Form()">
+                        {% csrf_token %}
                         <div class="form-group">
                             <input type="email" name="email" id="email" class="form-control"
                                    placeholder="Please enter your email"
@@ -21,7 +32,7 @@
                                    autocomplete="off">
                         </div>
                         <div class="w-100 text-center">
-                            <button id="login-btn" class="btn btn-primary login-btn">log in</button>
+                            <button type="submit" id="login-btn" class="btn btn-primary login-btn">log in</button>
                         </div>
                     </form>
                 </div>
@@ -29,5 +40,45 @@
         </div>
     </div>
 </section>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.7.0/toastify.css">-->
+<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.7.0/toastify.min.css">-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.7.0/toastify.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.7.0/toastify.min.js"></script>-->
+
+<script>
+
+
+    function showWarningToasty(message) {
+        Toastify({
+            text: message,
+            duration: 500000,
+            close: true,
+            backgroundColor: "#FBC02D",
+        }).showToast();
+    }
+
+    function showLoader() {
+        document.getElementById("preloader").style.display = "block";
+    }
+
+    function order_Type_Form() {
+        // let x = document.forms["order_type_form"]["order_type"].value;
+        if (document.login_form.email.value === "") {
+            showWarningToasty("Order Type is empty!");
+            document.login_form.email.focus();
+            return false;
+        } else if (document.login_form.password.value === "") {
+            showWarningToasty("Delivery Charge is empty!");
+            document.login_form.password.focus();
+            return false;
+        } else {
+            showLoader();
+        }
+    }
+
+</script>
 
 {% endblock %}

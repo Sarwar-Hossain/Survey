@@ -15,7 +15,9 @@
                             <img src="{% static 'icon-images/rise 2.png' %}" alt="" class="img-fluid">
                         </div>
                     </div>
-                    <form action="">
+                    <form method="post" action="{% url 'customer_feedback' %}" id="membership-form" name="membership"
+                          enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div class="row">
                             <div class="col-12">
                                 <label for="" class="form-label">to be field by store</label>
