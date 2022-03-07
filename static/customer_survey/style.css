@@ -230,14 +230,14 @@ p.sincere {
 #content {
     position: absolute;
     width: 300px;
-    right: 0;
-    top: 0;
-    z-index: 99999
+    right: 11px;
+    top: 33px;
+    z-index: 1;
 }
 
 #content .alert {
     position: relative;
-    padding: 10px;
+    padding: 5px;
     margin-bottom: 1rem;
     border: 1px solid transparent;
     border-radius: .25rem;
@@ -266,10 +266,82 @@ p.sincere {
         opacity: 0;
     }
 }
-.toastify{
+
+.toastify {
     background: rgb(251, 192, 45) !important;
     right: 30px !important;
     top: 20px !important;
     width: 300px !important;
 
+}
+
+.log-out-btn {
+    margin: 10px 0px;
+    border-radius: 0;
+    min-width: 100px;
+    padding: 2px 0;
+    background: #C79439;
+    border-color: #C79439;
+    text-transform: capitalize;
+    position: absolute;
+    right: 20px;
+}
+
+.log-out-btn:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.log-out-btn:hover {
+    background: #C79439;
+    border-color: #C79439;
+}
+
+.main-layout-bg .card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.main-layout-bg .card .dataTable-table th a {
+    color: #fff;
+}
+
+.main-layout-bg .card .dataTable-table td {
+    color: #fff;
+}
+
+
+.main-layout-bg .card .dataTable-sorter::before {
+    border-top: 4px solid #fff;
+    bottom: 0;
+}
+
+.main-layout-bg .card .dataTable-sorter::after {
+    border-bottom: 4px solid #fff;
+    border-top: 4px solid transparent;
+    top: 0;
+}
+
+.main-layout-bg .card .btn-success {
+
+    font-size: 12px;
+    padding: 0 5px;
+    border-radius: 0;
+    min-width: 65px;
+}
+
+.main-layout-bg .card .btn-danger {
+    font-size: 12px;
+    padding: 0 5px;
+    border-radius: 0;
+    min-width: 65px;
+}
+
+.main-layout-bg .card .btn-info {
+    font-size: 12px;
+    padding: 0 5px;
+    border-radius: 0;
+    min-width: 65px;
+    color: #fff;
 }

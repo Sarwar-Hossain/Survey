@@ -10,4 +10,6 @@ urlpatterns = [
                   path('loylity/membership/form/', views.loylity_membership, name='loylity_membership'),
                   path('customer/feedback/form/', views.customer_feedback, name='customer_feedback'),
                   path('thank/you/', views.thank_you, name='thank_you'),
+                  path('delete/user/', views.delete_user, name='delete_user'),
+                  path('logout/', views.logout, name='logout'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -19,7 +19,7 @@
                         <img src="{% static 'icon-images/rise 2.png' %}" alt="" class="img-fluid">
                     </div>
                     <form method="post" id="login_form" name="login_form" enctype="multipart/form-data"
-                          onsubmit="return order_Type_Form()">
+                          onsubmit="return login_Form()">
                         {% csrf_token %}
                         <div class="form-group">
                             <input type="email" name="email" id="email" class="form-control"
@@ -41,37 +41,28 @@
     </div>
 </section>
 
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.7.0/toastify.css">-->
-<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.7.0/toastify.min.css">-->
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.7.0/toastify.js"></script>-->
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.7.0/toastify.min.js"></script>-->
-
 <script>
-
-
-    function showWarningToasty(message) {
-        Toastify({
-            text: message,
-            duration: 500000,
-            close: true,
-            backgroundColor: "#FBC02D",
-        }).showToast();
-    }
 
     function showLoader() {
         document.getElementById("preloader").style.display = "block";
     }
 
-    function order_Type_Form() {
-        // let x = document.forms["order_type_form"]["order_type"].value;
+    function showWarningToasty(message) {
+        Toastify({
+            text: message,
+            duration: 4000,
+            close: true,
+            backgroundColor: "#0000FF",
+        }).showToast();
+    }
+
+    function login_Form() {
         if (document.login_form.email.value === "") {
-            showWarningToasty("Order Type is empty!");
+            showWarningToasty("Shop Email Id is Empty!");
             document.login_form.email.focus();
             return false;
         } else if (document.login_form.password.value === "") {
-            showWarningToasty("Delivery Charge is empty!");
+            showWarningToasty("Password is Empty!");
             document.login_form.password.focus();
             return false;
         } else {

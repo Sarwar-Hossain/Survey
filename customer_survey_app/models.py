@@ -14,8 +14,11 @@ class ShopUser(models.Model):
     mobile_no = models.CharField(max_length=15, null=True)
     is_user_active = models.BooleanField(null=False, default=True)
     email = models.EmailField(max_length=100, null=False, blank=False)
-    password = models.CharField(max_length=500, blank=False, null=False)
-    created_time = models.DateTimeField(auto_now_add=True, null=True)
+    password = models.CharField(max_length=100, null=False)
+    created_time = models.DateTimeField(auto_now=False, null=True)
+    created_by = models.CharField(max_length=100, blank=False, null=False, default='')
+    updated_time = models.DateTimeField(auto_now=False, null=True)
+    updated_by = models.CharField(max_length=100, blank=False, null=False, default='')
 
 
 class Category(models.Model):
@@ -38,6 +41,9 @@ class Customer(models.Model):
     marital_status = models.CharField(max_length=100, blank=True, null=True, default='')
     address = models.CharField(max_length=200, null=True, blank=True)
     created_time = models.DateTimeField(auto_now_add=True, null=True)
+    created_by = models.CharField(max_length=100, blank=False, null=False, default='')
+    updated_time = models.DateTimeField(auto_now_add=True, null=True)
+    updated_by = models.CharField(max_length=100, blank=False, null=False, default='')
 
 
 class CustomerFeedback(models.Model):

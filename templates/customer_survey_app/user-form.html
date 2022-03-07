@@ -7,77 +7,229 @@
 {% endif %}
 
 <section class="main-layout-bg">
+    <!--    Toast Messages-->
     <div id="content">
         {% include 'customer_survey_app/messages.html' %}
+    </div>
+    <!--    Log out-->
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <a href="{% url 'logout' %}" class="btn btn-primary log-out-btn" type="button">log out</a>
+            </div>
+        </div>
     </div>
 
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="loyalty-membership">
-
                     <div class="loyalty-title-flex">
                         <div class="title-box">
                             <h3>Create Shop User</h3>
+                            <p id="demo"></p>
                         </div>
                         <div class="logo-box">
                             <img src="{% static 'icon-images/rise 2.png' %}" alt="" class="img-fluid">
                         </div>
                     </div>
-                    <form method="post" id="user-form" name="user_form" enctype="multipart/form-data">
+                    <form method="post" id="user_form" name="user_form" enctype="multipart/form-data"
+                          onsubmit="return user_Form()">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
+                                    <label for="user_name">
+                                        <span>User_name</span>
+                                        <span class="asterisk-label">*</span>
+                                    </label>
                                     <input type="text" name="user_name" id="user_name" class="form-control"
-                                           placeholder="User Name:"
+                                           placeholder="User Name:" value="{{single_user.user_name}}"
                                            autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="number" name="mobile_no" id="mobile_no" class="form-control"
-                                           placeholder="Mobile No:"
+                                    <label for="mobile_no">
+                                        <span>Mobile No</span>
+                                        <span class="asterisk-label">*</span>
+                                    </label>
+                                    <input type="text" name="mobile_no" id="mobile_no" class="form-control"
+                                           placeholder="Mobile No:" value="{{single_user.mobile_no}}"
                                            autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
+                                    <label for="email">
+                                        <span>Email</span>
+                                        <span class="asterisk-label">*</span>
+                                    </label>
                                     <input type="email" name="email" id="email" class="form-control"
-                                           placeholder="Shop Email_Id:"
+                                           placeholder="Shop Email_Id:" value="{{single_user.email}}"
                                            autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="password" name="password" id="password" class="form-control"
-                                           placeholder="password:"
+                                    <label for="password">
+                                        <span>Password</span>
+                                        <span class="asterisk-label">*</span>
+                                    </label>
+                                    <input type="text" name="password" id="password" class="form-control"
+                                           placeholder="password:" value="{{password}}"
                                            autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
+                                    <label for="shop_name">
+                                        <span>Shop Name</span>
+                                        <span class="asterisk-label">*</span>
+                                    </label>
                                     <input type="text" name="shop_name" id="shop_name" class="form-control"
-                                           placeholder="Shop Name:"
+                                           placeholder="Shop Name:" value="{{single_user.shop_name}}"
                                            autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
+                                    <label for="shop_id">
+                                        <span>Shop Id</span>
+                                        <span class="asterisk-label">*</span>
+                                    </label>
                                     <input type="number" name="shop_id" id="shop_id" class="form-control"
-                                           placeholder="Shop Id:"
+                                           placeholder="Shop Id:" value="{{single_user.shop_id}}"
                                            autocomplete="off">
                                 </div>
                             </div>
                         </div>
                         <div class="w-100 text-center">
-                            <button type="submit" class="btn btn-primary login-btn">Create</button>
+                            <button id="button_reset" type="button"
+                                    onclick="ClearFields();"
+                                    class="btn btn-info login-btn">
+                                Reset
+                            </button>
+                            {% if single_user %}
+                            <input type="hidden" name="user_id" value="{{ single_user.id }}">
+                            <button name="button_update" type="submit" id="button_update"
+                                    value="{{ single_user.id }}"
+                                    class="btn btn-primary login-btn">
+                                Update
+                            </button>
+                            <button name="button_delete" type="submit" id="button_delete"
+                                    value="{{ single_user.id }}" onclick="return false"
+                                    class="btn btn-primary login-btn">
+                                Delete
+                            </button>
+                            {% else %}
+                            <button type="submit" name="button_submit" class="btn btn-primary login-btn"
+                                    value="button_submit">
+                                Create
+                            </button>
+                            {% endif %}
                         </div>
                     </form>
                 </div>
             </div>
+            <h1 class="text-center">Shop Users</h1>
+            <div class="card">
+                <div class="card-body">
+                    <table id="users_status" class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>User Name</th>
+                            <th>Mobile No</th>
+                            <th>Shop Email Id</th>
+                            <th>Shop Name</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in shop_users %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ user.user_name }}</td>
+                            <td>{{ user.mobile_no }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.shop_name }}</td>
+                            <td>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    {% if user.is_user_active == 1 %}
+                                    <input type="hidden" name="user_id" value="{{ user.id }}">
+                                    <button name="user_deactivate" type="submit"
+                                            class="btn btn-danger" value="{{ user.id }}">
+                                        Deactivate
+                                    </button>
+                                    {% else %}
+                                    <button name="user_activate" type="submit"
+                                            class="btn btn-success" value="{{ user.id }}">
+                                        Activate
+                                    </button>
+                                    {% endif %}
+                                </form>
+                            </td>
+                            <td>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="user_id" value="{{ user.id }}">
+                                    <button name="button_select" type="submit"
+                                            class="btn btn-info" value="{{ user.id }}">
+                                        Select
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
+    <br>
 </section>
+<script src="{% static 'js/user-form.js' %}"></script>
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>-->
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>-->
+
+<script>
+
+    let usersStatus = document.querySelector('#users_status');
+    let dataTable = new simpleDatatables.DataTable(usersStatus);
+
+    // Delete User
+    document.getElementById('button_delete').addEventListener('click', async (e) => {
+        await Swal.fire({
+            icon: "question",
+            title: "Are you Sure??",
+            showCancelButton: true,
+        }).then(function (result) {
+            if (result.value) {
+                var user_id = document.getElementById('button_delete').value;
+
+                $.ajax({
+                    url: '{% url "delete_user" %}',
+                    data: {
+                        'user_id': user_id,
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        alert(data.toast_message)
+                        if (data) {
+                            window.location = "{% url 'create_shop_user' %}"
+                        }
+                    }
+                });
+            }
+        });
+    })
+
+</script>
 
 {% endblock %}

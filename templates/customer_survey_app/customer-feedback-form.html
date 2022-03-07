@@ -1,7 +1,26 @@
 {% extends 'customer_survey_app/base.html' %}
 {% load static %}
 {% block content %}
+
+{% if toast_mes %}
+<script>swal("{{toast_mes.toast_message}}");</script>
+{% endif %}
+
 <section class="main-layout-bg">
+
+    <!--    Toast Messages-->
+    <div id="content">
+        {% include 'customer_survey_app/messages.html' %}
+    </div>
+    <!--    Log out-->
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <a href="{% url 'logout' %}" class="btn btn-primary log-out-btn" type="button">log out</a>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
