@@ -345,3 +345,20 @@ p.sincere {
     min-width: 65px;
     color: #fff;
 }
+@media(max-width: 414px){
+    .dataTable-table th:nth-child(2){
+        min-width: 120px;
+    }
+       .dataTable-table th:nth-child(5){
+        min-width: 130px;
+    }
+    .dataTable-table th:nth-child(6){
+        min-width: 120px;
+    }
+}
+
+@media(min-width: 415px) and (max-width: 575px){
+         .dataTable-table th:nth-child(5){
+        min-width: 130px;
+    }
+}

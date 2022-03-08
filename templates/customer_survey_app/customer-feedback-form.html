@@ -34,7 +34,7 @@
                             <img src="{% static 'icon-images/rise 2.png' %}" alt="" class="img-fluid">
                         </div>
                     </div>
-                    <form action="{% url 'thank_you' %}" method="post" id="feedback-form" name="feedback-form"
+                    <form method="post" id="feedback-form" name="feedback-form"
                           enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="row">
@@ -42,53 +42,63 @@
                                 <level class="form-label d-block">1. Are You Pleased with the service you received?
                                 </level>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="question_1_y"
-                                           id="question_1_y" value="option1">
-                                    <label class="form-check-label" for="question_1_y">Yes</label>
+                                    <input class="form-check-input" type="radio" name="question_1"
+                                           id="question_1" value="True">
+                                    <label class="form-check-label" for="question_1">Yes</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="question_1_n"
-                                           id="question_1_n" value="option2">
+                                    <input class="form-check-input" type="radio" name="question_1"
+                                           id="question_1_n" value="False">
                                     <label class="form-check-label" for="question_1_n">No</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <level class="form-label d-block">2. our sales associates was,</level>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="question_2_y"
-                                           id="question_2_y" value="option1">
-                                    <label class="form-check-label" for="question_2_y">Yes</label>
+                                    <input class="form-check-input" type="radio" name="question_2"
+                                           id="question_2" value="Friendly">
+                                    <label class="form-check-label" for="question_2">Friendly</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="question_2_n"
-                                           id="question_2_n" value="option2">
-                                    <label class="form-check-label" for="question_2_n">No</label>
+                                    <input class="form-check-input" type="radio" name="question_2"
+                                           id="question_2_2" value="Knowledgeable">
+                                    <label class="form-check-label" for="question_2_n">Knowledgeable</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_2"
+                                           id="question_2_n" value="Helpful">
+                                    <label class="form-check-label" for="question_2_n">Helpful</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <level class="form-label d-block">3. are you satisfied with the products?</level>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="question_3_y"
-                                           id="question_3_y" value="option1">
-                                    <label class="form-check-label" for="question_3_y">Yes</label>
+                                    <input class="form-check-input" type="radio" name="question_3"
+                                           id="question_3" value="Slightly">
+                                    <label class="form-check-label" for="question_3">Slightly</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="question_3_n"
-                                           id="question_3_n" value="option2">
-                                    <label class="form-check-label" for="question_3_n">No</label>
+                                    <input class="form-check-input" type="radio" name="question_3"
+                                           id="question_3_n_2" value="Moderate">
+                                    <label class="form-check-label" for="question_3_n">Moderate</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_3"
+                                           id="question_3_n" value="Strongly">
+                                    <label class="form-check-label" for="question_3_n">Strongly</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <level class="form-label d-block">4. i would recommend RISE to my friends & family
                                 </level>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="question_4_y"
-                                           id="question_4_y" value="option1">
-                                    <label class="form-check-label" for="question_4_y">Yes</label>
+                                    <input class="form-check-input" type="radio" name="question_4"
+                                           id="question_4" value="True">
+                                    <label class="form-check-label" for="question_4">Yes</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="question_4_n"
-                                           id="question_4_n" value="option2">
+                                    <input class="form-check-input" type="radio" name="question_4"
+                                           id="question_4_n" value="False">
                                     <label class="form-check-label" for="question_4_n">No</label>
                                 </div>
                             </div>
@@ -96,13 +106,13 @@
                                 <level class="form-label d-block">5. was your overall experience on-time & pleasant?
                                 </level>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="question_5_y"
-                                           id="question_5_y" value="option1">
-                                    <label class="form-check-label" for="question_5_y">Yes</label>
+                                    <input class="form-check-input" type="radio" name="question_5"
+                                           id="question_5" value="True">
+                                    <label class="form-check-label" for="question_5">Yes</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="question_5_n"
-                                           id="question_5_n" value="option2">
+                                    <input class="form-check-input" type="radio" name="question_5"
+                                           id="question_5_n" value="False">
                                     <label class="form-check-label" for="question_5_n">No</label>
                                 </div>
                             </div>
@@ -131,13 +141,13 @@
                                 <level class="form-label d-block">9. please use the space provided for any
                                     comments/recommendations
                                 </level>
-                                <textarea name="question_9" class="form-control" placeholder="Address"
-                                          id="question_9"></textarea>
+                                <textarea name="address" class="form-control" placeholder="Address"
+                                          id="address" ></textarea>
                             </div>
                         </div>
 
                         <div class="w-100 text-center">
-                            <button class="btn btn-primary login-btn">submit</button>
+                            <button class="btn btn-primary login-btn" name="button_submit">submit</button>
                         </div>
                     </form>
                 </div>

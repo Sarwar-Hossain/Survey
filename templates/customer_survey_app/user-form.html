@@ -135,7 +135,8 @@
             <h1 class="text-center">Shop Users</h1>
             <div class="card">
                 <div class="card-body">
-                    <table id="users_status" class="table table-striped">
+                   <div class="table-responsive">
+                        <table id="users_status" class="table table-striped">
                         <thead>
                         <tr>
                             <th>#</th>
@@ -144,7 +145,7 @@
                             <th>Shop Email Id</th>
                             <th>Shop Name</th>
                             <th>Status</th>
-                            <th></th>
+                            <th>Select User</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -186,6 +187,15 @@
                         {% endfor %}
                         </tbody>
                     </table>
+                   </div>
+                </div>
+                <div class="col-12 text-center">
+                    <form action="">
+                        <div class="w-100 text-center">
+                            <a class="btn btn-primary login-btn"
+                               href="{% url 'customer_survey_report' %}">Back To Home</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

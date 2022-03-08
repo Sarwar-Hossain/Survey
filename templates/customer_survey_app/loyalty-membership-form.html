@@ -35,34 +35,47 @@
                             <img src="{% static 'icon-images/rise 2.png' %}" alt="" class="img-fluid">
                         </div>
                     </div>
-                    <form method="post" action="{% url 'customer_feedback' %}" id="membership-form" name="membership"
-                          enctype="multipart/form-data">
+                    <form method="post" id="membership-form"
+                          name="membership-form"
+                          enctype="multipart/form-data" autocomplete="off">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-12">
-                                <label for="" class="form-label">to be field by store</label>
+                                <label for="membership_no" class="form-label">to be field by store</label>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Membership No:"
+                                    <input type="text" name="membership_no" id="membership_no" class="form-control"
+                                           placeholder="Membership No:"
                                            autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Invoice No:"
+                                    <input type="text" name="in_voice_no" id="in_voice_no" class="form-control"
+                                           placeholder="Invoice No:"
                                            autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <!--                                <div class="form-group">-->
+                                <!--                                    <input type="text" name="category" id="category" class="form-control"-->
+                                <!--                                           placeholder="Category:"-->
+                                <!--                                           autocomplete="off">-->
+                                <!--                                </div>-->
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Category:"
-                                           autocomplete="off">
+                                    <select class="form-select form-control" name="category_id" id="category_id"
+                                            aria-label="Default select example">
+                                        <option selected disabled>Category:</option>
+                                        {% for category in categories %}
+                                        <option value="{{category.id}}">{{category.category_name}}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Title:"
+                                    <input type="text" name="title" id="title" class="form-control" placeholder="Title:"
                                            autocomplete="off">
                                 </div>
                             </div>
@@ -70,42 +83,48 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <label for="" class="form-label">to be field by customer</label>
+                                <label class="form-label">to be field by customer</label>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="First Name:"
+                                    <input type="text" name="first_name" id="first_name" class="form-control"
+                                           placeholder="*First Name:"
                                            autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Last Name:"
+                                    <input type="text" name="last_name" id="last_name" class="form-control"
+                                           placeholder="*Last Name:"
                                            autocomplete="off">
                                 </div>
 
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="Email Address:"
+                                    <input type="email" name="email" id="email" class="form-control"
+                                           placeholder="*Email Address:"
                                            autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Contact No."
+                                    <input type="text" name="contact_no" id="contact_no" class="form-control"
+                                           placeholder="*Contact No."
                                            autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Date Of Birth"
+                                    <input type="text" name="date_of_birth" id="date_of_birth" class="form-control"
+                                           placeholder="*Date Of Birth"
                                            onfocus="(this.type='date')" autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <select class="form-select form-control" aria-label="Default select example">
+                                    <select class="form-select form-control" name="marital_status" id="marital_status"
+                                            aria-label="Default select example">
                                         <option selected disabled>Marital Status:</option>
                                         <option value="1">Single</option>
                                         <option value="2">Married</option>
@@ -117,12 +136,12 @@
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Address:"
-                                          id=""></textarea>
+                                <textarea class="form-control" name="address" placeholder="Address:"
+                                          id="address"></textarea>
                             </div>
                         </div>
                         <div class="w-100 text-center">
-                            <button class="btn btn-primary login-btn">submit</button>
+                            <button class="btn btn-primary login-btn" name="button_submit">submit</button>
                         </div>
                     </form>
                 </div>

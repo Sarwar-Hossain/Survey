@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from customer_survey_app.models import *
@@ -17,6 +18,7 @@ def login(request):
             decoded_pass = eval(user.password)
 
             if user:
+                # admin login
                 decoded = AESCipher().decrypt(decoded_pass)
                 if password == decoded and user.email == 'admin@gmail.com':
                     if user.is_user_active:
@@ -26,11 +28,12 @@ def login(request):
                     else:
                         messages.error(request, 'User isn\'t active!')
                         return render(request, 'customer_survey_app/log-in.html')
+                # Shop user login
                 elif password == decoded and user.email == email:
                     if user.is_user_active:
-                            request.session['user_name'] = user.user_name
-                            messages.success(request, 'Login Successful!')
-                            return redirect('loylity_membership')
+                        request.session['user_name'] = user.user_name
+                        messages.success(request, 'Login Successful!')
+                        return redirect('loylity_membership')
                     else:
                         messages.error(request, 'User isn\'t active!')
                         return render(request, 'customer_survey_app/log-in.html')
@@ -39,7 +42,6 @@ def login(request):
                     return render(request, 'customer_survey_app/log-in.html')
         else:
             return redirect('log-in')
-        return render(request, 'customer_survey_app/log-in.html')
     except KeyError as e:
         print(e)
         return redirect('login')
@@ -50,7 +52,12 @@ def login(request):
 
 def customer_survey_report(request):
     try:
-        return render(request, 'customer_survey_app/customer-survey-report.html')
+        if request.session.has_key('user_name'):
+            demo = get_percentage(3, 5)
+            print(demo)
+            return render(request, 'customer_survey_app/customer-survey-report.html', {'demo': demo})
+        else:
+            return redirect('login')
     except KeyError as e:
         print(e)
         return redirect('customer_survey_report')
@@ -61,101 +68,108 @@ def customer_survey_report(request):
 
 def create_shop_user(request):
     try:
-        super_admin = request.session['user_name']
-        shop_users = ShopUser.objects.all().order_by('user_name')
+        if request.session.has_key('user_name'):
+            super_admin = request.session['user_name']
+            shop_users = ShopUser.objects.all().order_by('user_name')
 
-        if request.method == 'POST':
-            if 'button_submit' in request.POST:
-                user_name = request.POST.get('user_name').strip()
-                mobile_no = request.POST.get('mobile_no').strip()
-                email = request.POST.get('email').strip()
-                password = request.POST.get('password').strip()
-                shop_name = request.POST.get('shop_name').strip()
-                shop_id = request.POST.get('shop_id').strip()
-                encoded_password = AESCipher().encrypt(password)
+            if request.method == 'POST':
+                # Create Shop User
+                if 'button_submit' in request.POST:
+                    user_name = request.POST.get('user_name').strip()
+                    mobile_no = request.POST.get('mobile_no').strip()
+                    email = request.POST.get('email').strip()
+                    password = request.POST.get('password').strip()
+                    shop_name = request.POST.get('shop_name').strip()
+                    shop_id = request.POST.get('shop_id').strip()
+                    encoded_password = AESCipher().encrypt(password)
 
-                if mobile_no != '' and not mobile_no.startswith('+88'):
-                    number = '+88' + mobile_no
-                else:
-                    number = mobile_no
+                    if mobile_no != '' and not mobile_no.startswith('+88'):
+                        number = '+88' + mobile_no
+                    else:
+                        number = mobile_no
 
-                is_success = ShopUser.objects.create(user_name=user_name,
-                                                     email=email,
-                                                     password=encoded_password,
-                                                     is_user_active=True,
-                                                     shop_id=shop_id,
-                                                     shop_name=shop_name,
-                                                     mobile_no=number,
-                                                     created_by=super_admin,
-                                                     created_time=datetime.now())
-                messages.success(request, 'User Created Successfully!')
-                if is_success:
-                    return render(request, 'customer_survey_app/user-form.html', {'shop_users': shop_users})
-                else:
-                    return redirect('create_shop_user')
+                    is_success = ShopUser.objects.create(user_name=user_name,
+                                                         email=email,
+                                                         password=encoded_password,
+                                                         is_user_active=True,
+                                                         shop_id=shop_id,
+                                                         shop_name=shop_name,
+                                                         mobile_no=number,
+                                                         created_by=super_admin,
+                                                         created_time=datetime.now())
+                    messages.success(request, 'User Created Successfully!')
+                    if is_success:
+                        return render(request, 'customer_survey_app/user-form.html', {'shop_users': shop_users})
+                    else:
+                        return redirect('create_shop_user')
 
-            elif 'button_select' in request.POST:
-                user_id = request.POST.get('user_id').strip()
-                single_user = ShopUser.objects.get(id=user_id)
-                password = eval(single_user.password)
-                decoded_password = AESCipher().decrypt(password)
-                messages.success(request, "User Selected!")
-                context = {
-                    'single_user': single_user,
-                    'shop_users': shop_users,
-                    'password': decoded_password
-                }
-                return render(request, 'customer_survey_app/user-form.html', context)
+                # Select Shop User
+                elif 'button_select' in request.POST:
+                    user_id = request.POST.get('user_id').strip()
+                    single_user = ShopUser.objects.get(id=user_id)
+                    password = eval(single_user.password)
+                    decoded_password = AESCipher().decrypt(password)
+                    messages.success(request, "User Selected!")
+                    context = {
+                        'single_user': single_user,
+                        'shop_users': shop_users,
+                        'password': decoded_password
+                    }
+                    return render(request, 'customer_survey_app/user-form.html', context)
 
-            elif 'button_update' in request.POST:
-                user_id = request.POST.get('user_id').strip()
-                user_name = request.POST.get('user_name').strip()
-                mobile_no = request.POST.get('mobile_no').strip()
-                email = request.POST.get('email').strip()
-                password = request.POST.get('password').strip()
-                shop_name = request.POST.get('shop_name').strip()
-                shop_id = request.POST.get('shop_id').strip()
-                encoded_password = AESCipher().encrypt(password)
+                # Update Shop User
+                elif 'button_update' in request.POST:
+                    user_id = request.POST.get('user_id').strip()
+                    user_name = request.POST.get('user_name').strip()
+                    mobile_no = request.POST.get('mobile_no').strip()
+                    email = request.POST.get('email').strip()
+                    password = request.POST.get('password').strip()
+                    shop_name = request.POST.get('shop_name').strip()
+                    shop_id = request.POST.get('shop_id').strip()
+                    encoded_password = AESCipher().encrypt(password)
 
-                user_update = ShopUser.objects.filter(id=user_id).update(user_name=user_name,
-                                                                         email=email,
-                                                                         password=encoded_password,
-                                                                         shop_name=shop_name,
-                                                                         mobile_no=mobile_no,
-                                                                         shop_id=shop_id,
-                                                                         updated_by=super_admin,
-                                                                         updated_time=datetime.now())
-                messages.success(request, "User Updated!")
-                context = {
-                    'shop_users': shop_users
-                }
-                return render(request, 'customer_survey_app/user-form.html', context)
+                    user_update = ShopUser.objects.filter(id=user_id).update(user_name=user_name,
+                                                                             email=email,
+                                                                             password=encoded_password,
+                                                                             shop_name=shop_name,
+                                                                             mobile_no=mobile_no,
+                                                                             shop_id=shop_id,
+                                                                             updated_by=super_admin,
+                                                                             updated_time=datetime.now())
+                    messages.success(request, "User Updated!")
+                    context = {
+                        'shop_users': shop_users
+                    }
+                    return render(request, 'customer_survey_app/user-form.html', context)
 
-            elif 'user_deactivate' in request.POST:
-                user_id = request.POST.get('user_deactivate').strip()
-                deactivate = ShopUser.objects.filter(id=user_id).update(
-                    updated_by=super_admin,
-                    is_user_active=False,
-                    updated_time=datetime.now())
-                messages.success(request, "User Deactivated Successful!")
-                context = {
-                    'shop_users': shop_users
-                }
-                return render(request, 'customer_survey_app/user-form.html', context)
+                # Deactivate Shop User
+                elif 'user_deactivate' in request.POST:
+                    user_id = request.POST.get('user_deactivate').strip()
+                    deactivate = ShopUser.objects.filter(id=user_id).update(
+                        updated_by=super_admin,
+                        is_user_active=False,
+                        updated_time=datetime.now())
+                    messages.success(request, "User Deactivated Successful!")
+                    context = {
+                        'shop_users': shop_users
+                    }
+                    return render(request, 'customer_survey_app/user-form.html', context)
 
-            elif 'user_activate' in request.POST:
-                user_id = request.POST.get('user_activate').strip()
-                deactivate = ShopUser.objects.filter(id=user_id).update(
-                    updated_by=super_admin,
-                    is_user_active=True,
-                    updated_time=datetime.now())
-                messages.success(request, "User Activated Successful!")
-                context = {
-                    'shop_users': shop_users
-                }
-                return render(request, 'customer_survey_app/user-form.html', context)
-
-        return render(request, 'customer_survey_app/user-form.html', {'shop_users': shop_users})
+                # Activate Shop User
+                elif 'user_activate' in request.POST:
+                    user_id = request.POST.get('user_activate').strip()
+                    deactivate = ShopUser.objects.filter(id=user_id).update(
+                        updated_by=super_admin,
+                        is_user_active=True,
+                        updated_time=datetime.now())
+                    messages.success(request, "User Activated Successful!")
+                    context = {
+                        'shop_users': shop_users
+                    }
+                    return render(request, 'customer_survey_app/user-form.html', context)
+            return render(request, 'customer_survey_app/user-form.html', {'shop_users': shop_users})
+        else:
+            return redirect('login')
     except KeyError as e:
         print(e)
         return redirect('create_shop_user')
@@ -166,7 +180,46 @@ def create_shop_user(request):
 
 def loylity_membership(request):
     try:
-        return render(request, 'customer_survey_app/loyalty-membership-form.html')
+        if request.session.has_key('user_name'):
+            user_name = request.session['user_name']
+            categories = Category.objects.all()
+            if 'button_submit' in request.POST:
+                membership_no = request.POST.get('membership_no')
+                in_voice_no = request.POST.get('in_voice_no')
+                category_id = request.POST.get('category_id')
+                title = request.POST.get('title')
+                first_name = request.POST.get('first_name')
+                last_name = request.POST.get('last_name')
+                email = request.POST.get('email')
+                contact_no = request.POST.get('contact_no')
+                date_of_birth = request.POST.get('date_of_birth')
+                marital_status = request.POST.get('marital_status')
+                address = request.POST.get('address')
+
+                if contact_no != '' and not contact_no.startswith('+88'):
+                    number = '+88' + contact_no
+                else:
+                    number = contact_no
+
+                create_member = Customer.objects.create(membership_no=membership_no,
+                                                        in_voice_no=in_voice_no,
+                                                        category_id=category_id,
+                                                        title=title,
+                                                        first_name=first_name,
+                                                        last_name=last_name,
+                                                        email=email,
+                                                        contact_no=number,
+                                                        date_of_birth=date_of_birth,
+                                                        marital_status=marital_status,
+                                                        address=address,
+                                                        created_by=user_name,
+                                                        created_time=datetime.now())
+                messages.success(request, 'Form Submitted')
+                return redirect('customer_feedback')
+            else:
+                return render(request, 'customer_survey_app/loyalty-membership-form.html', {'categories': categories})
+        else:
+            return redirect('login')
     except KeyError as e:
         print(e)
         return redirect('loylity_membership')
@@ -177,7 +230,36 @@ def loylity_membership(request):
 
 def customer_feedback(request):
     try:
-        return render(request, 'customer_survey_app/customer-feedback-form.html')
+        if request.session.has_key('user_name'):
+            user_name = request.session['user_name']
+            if 'button_submit' in request.POST:
+                question_1 = request.POST.get('question_1')
+                question_2 = request.POST.get('question_2')
+                question_3 = request.POST.get('question_3')
+                question_4 = request.POST.get('question_4')
+                question_5 = request.POST.get('question_5')
+                question_6 = request.POST.get('question_6').strip().capitalize()
+                question_7 = request.POST.get('question_7').strip().capitalize()
+                question_8 = request.POST.get('question_8').strip().capitalize()
+                address = request.POST.get('address').strip().capitalize()
+
+                create_feedback = CustomerFeedback.objects.create(question_1=question_1,
+                                                                  question_2=question_2,
+                                                                  question_3=question_3,
+                                                                  question_4=question_4,
+                                                                  question_5=question_5,
+                                                                  question_6=question_6,
+                                                                  question_7=question_7,
+                                                                  question_8=question_8,
+                                                                  address=address,
+                                                                  created_by=user_name,
+                                                                  created_time=datetime.now())
+                messages.success(request, 'Form Submitted')
+                return redirect('thank_you')
+            else:
+                return render(request, 'customer_survey_app/customer-feedback-form.html')
+        else:
+            return redirect('login')
     except KeyError as e:
         print(e)
         return redirect('customer_feedback')
@@ -188,7 +270,10 @@ def customer_feedback(request):
 
 def thank_you(request):
     try:
-        return render(request, 'customer_survey_app/thank-you.html')
+        if request.session.has_key('user_name'):
+            return render(request, 'customer_survey_app/thank-you.html')
+        else:
+            return redirect('login')
     except KeyError as e:
         print(e)
         return redirect('thank_you')
@@ -214,3 +299,17 @@ def delete_user(request):
     return JsonResponse(context)
 
 
+# Covert into Boolean Field
+def str_to_bool(radio_button_value):
+    if radio_button_value == 'True':
+        return True
+    elif radio_button_value is None:
+        return False
+    else:
+        raise ValueError
+
+
+# Get Percentage
+def get_percentage(part, whole):
+    percentage = 100 * float(part)/float(whole)
+    return str(percentage) + '%'
