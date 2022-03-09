@@ -208,6 +208,7 @@ p.sincere {
 
 .progress-main .progress-box .progress .progress-bar {
     background: #C99235;
+    overflow: visible;
 }
 
 .custom-progress {

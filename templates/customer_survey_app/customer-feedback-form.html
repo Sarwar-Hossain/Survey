@@ -31,11 +31,11 @@
                             <h3>customer feedback</h3>
                         </div>
                         <div class="logo-box">
-                            <img src="{% static 'icon-images/rise 2.png' %}" alt="" class="img-fluid">
+                            <img src="{% static 'icon-images/rise.png' %}" alt="" class="img-fluid">
                         </div>
                     </div>
-                    <form method="post" id="feedback-form" name="feedback-form"
-                          enctype="multipart/form-data">
+                    <form method="post" id="feedback_form" name="feedback_form"
+                          enctype="multipart/form-data" onsubmit="return feedback_Form()">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-12">
@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <level class="form-label d-block">2. our sales associates was,</level>
+                                <level class="form-label d-block">2. our sales associates was . . .</level>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="question_2"
                                            id="question_2" value="Friendly">
@@ -62,7 +62,7 @@
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="question_2"
                                            id="question_2_2" value="Knowledgeable">
-                                    <label class="form-check-label" for="question_2_n">Knowledgeable</label>
+                                    <label class="form-check-label" for="question_2_2">Knowledgeable</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="question_2"
@@ -80,7 +80,7 @@
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="question_3"
                                            id="question_3_n_2" value="Moderate">
-                                    <label class="form-check-label" for="question_3_n">Moderate</label>
+                                    <label class="form-check-label" for="question_3_n_2">Moderate</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="question_3"
@@ -118,15 +118,51 @@
                             </div>
 
                             <div class="col-12">
-                                <level class="form-label d-block">6. what is your favourite color to wear?</level>
-                                <input type="text" name="question_6" id="question_6" class="form-control"
-                                       placeholder="">
+                                <level class="form-label d-block">6. what is your usual clothing size?</level>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_6"
+                                           id="question_6" value="Small">
+                                    <label class="form-check-label" for="question_6">Small</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_6"
+                                           id="question_5_m" value="Medium">
+                                    <label class="form-check-label" for="question_5_m">Medium</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_6"
+                                           id="question_5_l" value="Large">
+                                    <label class="form-check-label" for="question_5_l">Large</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_6"
+                                           id="question_5_e" value="Extra Large">
+                                    <label class="form-check-label" for="question_5_e">Extra Large</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_6"
+                                           id="question_5_e_e" value="Extra Extra Large">
+                                    <label class="form-check-label" for="question_5_e_e">Extra Extra Large</label>
+                                </div>
                             </div>
 
                             <div class="col-12">
-                                <level class="form-label d-block">7. what is your usual clothing size?</level>
-                                <input type="text" name="question_7" id="question_7" class="form-control"
-                                       placeholder="">
+                                <level class="form-label d-block">7. what is your favourite color to wear?</level>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_7"
+                                           id="question_5_b" value="Black">
+                                    <label class="form-check-label" for="question_5_b">Black</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_7"
+                                           id="question_5_w" value="White">
+                                    <label class="form-check-label" for="question_5_w">White</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="question_7"
+                                           id="question_5_o" value="Others">
+                                    <label class="form-check-label" for="question_5_o">Others</label>
+                                </div>
                             </div>
 
                             <div class="col-12">
@@ -142,7 +178,7 @@
                                     comments/recommendations
                                 </level>
                                 <textarea name="address" class="form-control" placeholder="Address"
-                                          id="address" ></textarea>
+                                          id="address"></textarea>
                             </div>
                         </div>
 
@@ -156,4 +192,48 @@
     </div>
 </section>
 
+<script>
+
+    function showWarningToasty(message) {
+        Toastify({
+            text: message,
+            duration: 4000,
+            close: true,
+            backgroundColor: "#0000FF",
+        }).showToast();
+    }
+
+    // Form Validation
+    // function feedback_Form() {
+    //     if (document.feedback_form.question_1.value === "") {
+    //         showWarningToasty("Please Select Question 1!");
+    //         document.feedback_form.question_1.focus();
+    //         return false;
+    //     } else if (document.feedback_form.question_2.value === "") {
+    //         showWarningToasty("Please Select Question 2!");
+    //         document.feedback_form.question_2.focus();
+    //         return false;
+    //     } else if (document.feedback_form.question_3.value === "") {
+    //         showWarningToasty("Please Select Question 3!");
+    //         document.feedback_form.question_3.focus();
+    //         return false;
+    //     } else if (document.feedback_form.question_4.value === "") {
+    //         showWarningToasty("Please Select Question 4!");
+    //         document.feedback_form.question_4.focus();
+    //         return false;
+    //     } else if (document.feedback_form.question_5.value === "") {
+    //         showWarningToasty("Please Select Question 5!");
+    //         document.feedback_form.question_5.focus();
+    //         return false;
+    //     } else if (document.feedback_form.question_6.value === "") {
+    //         showWarningToasty("Please Select Question 6!");
+    //         document.feedback_form.question_6.focus();
+    //         return false;
+    //     } else if (document.feedback_form.question_7.value === "") {
+    //         showWarningToasty("Please Select Question 7!");
+    //         document.feedback_form.question_7.focus();
+    //         return false;
+    //     }
+    // }
+</script>
 {% endblock %}

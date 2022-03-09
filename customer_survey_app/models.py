@@ -47,9 +47,6 @@ class Customer(models.Model):
 class CustomerFeedback(models.Model):
     objects = None
 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, default=1)
-
     question_1 = models.BooleanField(null=False, default=True)
     question_2 = models.TextField(blank=False, null=False)
     question_3 = models.TextField(blank=False, null=False)

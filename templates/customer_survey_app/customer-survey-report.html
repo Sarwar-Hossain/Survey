@@ -1,5 +1,6 @@
 {% extends 'customer_survey_app/base.html' %}
 {% load static %}
+{% load staticfiles %}
 {% block content %}
 
 {% if toast_mes %}
@@ -31,7 +32,7 @@
                             <h3>loyalty club membership form</h3>
                         </div>
                         <div class="logo-box">
-                            <img src="{% static 'icon-images/rise 2.png' %}" alt="" class="img-fluid">
+                            <img src="{% static 'icon-images/rise.png' %}" alt="" class="img-fluid">
                         </div>
                     </div>
                     <div class="progress-main">
@@ -43,136 +44,136 @@
                                         <div class="progress">
                                             <!-- Bind Value in Style-->
                                             <!-- <div class="profile-cover" style="background: url('{{ cover }}')">-->
-                                            <div class="progress-bar" role="progressbar" style="width: 25%"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">yes
+                                            <div class="progress-bar" role="progressbar" style="width: {{ question_1_true }}"
+                                                 aria-valuenow="{{ question_1_true }}" aria-valuemin="0" aria-valuemax="100">Yes
                                             </div>
                                         </div>
                                         <div class="progress-counter">
-                                            <span>25%</span>
+                                            <span>{{ question_1_true }}</span>
                                         </div>
                                     </div>
                                     <div class="custom-progress">
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">no
+                                            <div class="progress-bar" role="progressbar" style="width: {{ question_1_false }}"
+                                                 aria-valuenow="{{ question_1_false }}" aria-valuemin="0" aria-valuemax="100">No
                                             </div>
                                         </div>
                                         <div class="progress-counter">
-                                            <span>25%</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="progress-box">
-                                    <h5>was your overall experience on-time & pleasant?</h5>
-                                    <div class="custom-progress">
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">yes
-                                            </div>
-                                        </div>
-                                        <div class="progress-counter">
-                                            <span>25%</span>
-                                        </div>
-                                    </div>
-                                    <div class="custom-progress">
-                                        <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">no
-                                            </div>
-                                        </div>
-                                        <div class="progress-counter">
-                                            <span>25%</span>
+                                            <span>{{ question_1_false }}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="progress-box">
-                                    <h5>i would recommend RISE to my friends & family</h5>
+                                    <h5>Was your overall experience on-time & pleasant?</h5>
                                     <div class="custom-progress">
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">yes
+                                            <div class="progress-bar" role="progressbar" style="width: {{question_5_true}}"
+                                                 aria-valuenow="{{question_5_true}}" aria-valuemin="0" aria-valuemax="100">Yes
                                             </div>
                                         </div>
                                         <div class="progress-counter">
-                                            <span>25%</span>
+                                            <span>{{question_5_true}}</span>
                                         </div>
                                     </div>
                                     <div class="custom-progress">
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">no
+                                            <div class="progress-bar" role="progressbar" style="width: {{question_5_false}}"
+                                                 aria-valuenow="{{question_5_false}}" aria-valuemin="0" aria-valuemax="100">No
                                             </div>
                                         </div>
                                         <div class="progress-counter">
-                                            <span>25%</span>
+                                            <span>{{question_5_false}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="progress-box">
+                                    <h5>I would recommend RISE to my friends & family</h5>
+                                    <div class="custom-progress">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: {{question_4_true}}"
+                                                 aria-valuenow="{{question_4_true}}" aria-valuemin="0" aria-valuemax="100">Yes
+                                            </div>
+                                        </div>
+                                        <div class="progress-counter">
+                                            <span>{{question_4_true}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="custom-progress">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: {{question_4_false}}"
+                                                 aria-valuenow="{{question_4_false}}" aria-valuemin="0" aria-valuemax="100">No
+                                            </div>
+                                        </div>
+                                        <div class="progress-counter">
+                                            <span>{{question_4_false}}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                                 <div class="progress-box">
-                                    <h5>are you satisfied with the products?</h5>
+                                    <h5>Are you satisfied with the products?</h5>
                                     <div class="custom-progress">
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">yes
+                                            <div class="progress-bar" role="progressbar" style="width: {{question_3_slightly}}"
+                                                 aria-valuenow="{{question_3_slightly}}" aria-valuemin="0" aria-valuemax="100">Slightly
                                             </div>
                                         </div>
                                         <div class="progress-counter">
-                                            <span>25%</span>
+                                            <span>{{question_3_slightly}}</span>
                                         </div>
                                     </div>
                                     <div class="custom-progress">
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">yes
+                                            <div class="progress-bar" role="progressbar" style="width: {{question_3_moderate}}"
+                                                 aria-valuenow="{{question_3_moderate}}" aria-valuemin="0" aria-valuemax="100">Moderate
                                             </div>
                                         </div>
                                         <div class="progress-counter">
-                                            <span>25%</span>
+                                            <span>{{question_3_moderate}}</span>
                                         </div>
                                     </div>
                                     <div class="custom-progress">
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">no
+                                            <div class="progress-bar" role="progressbar" style="width: {{question_3_strongly}}"
+                                                 aria-valuenow="{{question_3_strongly}}" aria-valuemin="0" aria-valuemax="100">Strongly
                                             </div>
                                         </div>
                                         <div class="progress-counter">
-                                            <span>25%</span>
+                                            <span>{{question_3_strongly}}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="progress-box">
-                                    <h5>was your overall experience on-time & pleasant?</h5>
+                                    <h5>Our Sales Associates Was . . .</h5>
                                     <div class="custom-progress">
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">yes
+                                            <div class="progress-bar" role="progressbar" style="width: {{question_2_friendly}}"
+                                                 aria-valuenow="{{question_2_friendly}}" aria-valuemin="0" aria-valuemax="100">Friendly
                                             </div>
                                         </div>
                                         <div class="progress-counter">
-                                            <span>25%</span>
+                                            <span>{{question_2_friendly}}</span>
                                         </div>
                                     </div>
                                     <div class="custom-progress">
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">no
+                                            <div class="progress-bar" role="progressbar" style="width: {{question_2_knowledgeable}}"
+                                                 aria-valuenow="{{question_2_knowledgeable}}" aria-valuemin="0" aria-valuemax="100">Knowledgeable
                                             </div>
                                         </div>
                                         <div class="progress-counter">
-                                            <span>25%</span>
+                                            <span>{{question_2_knowledgeable}}</span>
                                         </div>
                                     </div>
                                     <div class="custom-progress">
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">no
+                                            <div class="progress-bar" role="progressbar" style="width:{{question_2_helpful}}"
+                                                 aria-valuenow="{{question_2_helpful}}" aria-valuemin="0" aria-valuemax="100">Helpful
                                             </div>
                                         </div>
                                         <div class="progress-counter">
-                                            <span>25%</span>
+                                            <span>{{question_2_helpful}}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -181,88 +182,88 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                                 <div class="progress-box">
-                                    <h5>are you satisfied with the products?</h5>
+                                    <h5>What is your usual clothing size?</h5>
                                     <div class="custom-progress">
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">yes
+                                            <div class="progress-bar" role="progressbar" style="width: {{question_6_small}}"
+                                                 aria-valuenow="{{question_6_small}}" aria-valuemin="0" aria-valuemax="100">SMALL
                                             </div>
                                         </div>
                                         <div class="progress-counter">
-                                            <span>25%</span>
+                                            <span>{{question_6_small}}</span>
                                         </div>
                                     </div>
                                     <div class="custom-progress">
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">yes
+                                            <div class="progress-bar" role="progressbar" style="width: {{question_6_medium}}"
+                                                 aria-valuenow="{{question_6_medium}}" aria-valuemin="0" aria-valuemax="100">MEDIUM
                                             </div>
                                         </div>
                                         <div class="progress-counter">
-                                            <span>25%</span>
+                                            <span>{{question_6_medium}}</span>
                                         </div>
                                     </div>
                                     <div class="custom-progress">
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">yes
+                                            <div class="progress-bar" role="progressbar" style="width: {{question_6_large}}"
+                                                 aria-valuenow="{{question_6_large}}" aria-valuemin="0" aria-valuemax="100">LARGE
                                             </div>
                                         </div>
                                         <div class="progress-counter">
-                                            <span>25%</span>
+                                            <span>{{question_6_large}}</span>
                                         </div>
                                     </div>
                                     <div class="custom-progress">
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">yes
+                                            <div class="progress-bar" role="progressbar" style="width: {{question_6_extra_large}}"
+                                                 aria-valuenow="{{question_6_extra_large}}" aria-valuemin="0" aria-valuemax="100">EXTRA LARGE
                                             </div>
                                         </div>
                                         <div class="progress-counter">
-                                            <span>25%</span>
+                                            <span>{{question_6_extra_large}}</span>
                                         </div>
                                     </div>
                                     <div class="custom-progress">
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">no
+                                            <div class="progress-bar" role="progressbar" style="width: {{question_6_extra_extra_large}}"
+                                                 aria-valuenow="{{question_6_extra_extra_large}}" aria-valuemin="0" aria-valuemax="100">EXTRA EXTRA LARGE
                                             </div>
                                         </div>
                                         <div class="progress-counter">
-                                            <span>25%</span>
+                                            <span>{{question_6_extra_extra_large}}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="progress-box">
-                                    <h5>was your overall experience on-time & pleasant?</h5>
+                                    <h5>What Is Your Favourite Color To Wear?</h5>
                                     <div class="custom-progress">
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">yes
+                                            <div class="progress-bar" role="progressbar" style="width: {{question_7_black}}"
+                                                 aria-valuenow="{{question_7_black}}" aria-valuemin="0" aria-valuemax="100">BLACK
                                             </div>
                                         </div>
                                         <div class="progress-counter">
-                                            <span>25%</span>
+                                            <span>{{question_7_black}}</span>
                                         </div>
                                     </div>
                                     <div class="custom-progress">
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">no
+                                            <div class="progress-bar" role="progressbar" style="width: {{question_7_white}}"
+                                                 aria-valuenow="{{question_7_white}}" aria-valuemin="0" aria-valuemax="100">WHITE
                                             </div>
                                         </div>
                                         <div class="progress-counter">
-                                            <span>25%</span>
+                                            <span>{{question_7_white}}</span>
                                         </div>
                                     </div>
                                     <div class="custom-progress">
                                         <div class="progress">
-                                            <div class="progress-bar" role="progressbar" style="width: 25%;"
-                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">no
+                                            <div class="progress-bar" role="progressbar" style="width: {{question_7_others}}"
+                                                 aria-valuenow="{{question_7_others}}" aria-valuemin="0" aria-valuemax="100">OTHERS
                                             </div>
                                         </div>
                                         <div class="progress-counter">
-                                            <span>25%</span>
+                                            <span>{{question_7_others}}</span>
                                         </div>
                                     </div>
                                 </div>

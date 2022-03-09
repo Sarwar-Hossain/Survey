@@ -32,12 +32,12 @@
                             <h3>loyalty club membership form</h3>
                         </div>
                         <div class="logo-box">
-                            <img src="{% static 'icon-images/rise 2.png' %}" alt="" class="img-fluid">
+                            <img src="{% static 'icon-images/rise.png' %}" alt="" class="img-fluid">
                         </div>
                     </div>
-                    <form method="post" id="membership-form"
-                          name="membership-form"
-                          enctype="multipart/form-data" autocomplete="off">
+                    <form method="post" id="membership_form"
+                          name="membership_form"
+                          enctype="multipart/form-data" autocomplete="off" onsubmit="return membership_Form()">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-12">
@@ -126,10 +126,10 @@
                                     <select class="form-select form-control" name="marital_status" id="marital_status"
                                             aria-label="Default select example">
                                         <option selected disabled>Marital Status:</option>
-                                        <option value="1">Single</option>
-                                        <option value="2">Married</option>
-                                        <option value="3">Widowed</option>
-                                        <option value="3">Divorced</option>
+                                        <option value="Single">Single</option>
+                                        <option value="Married">Married</option>
+                                        <option value="Widowed">Widowed</option>
+                                        <option value="Divorced">Divorced</option>
                                     </select>
                                 </div>
                             </div>
@@ -149,5 +149,39 @@
         </div>
     </div>
 </section>
+<script>
 
+    function showWarningToasty(message) {
+        Toastify({
+            text: message,
+            duration: 4000,
+            close: true,
+            backgroundColor: "#0000FF",
+        }).showToast();
+    }
+
+    function membership_Form() {
+        if (document.membership_form.first_name.value === "") {
+            showWarningToasty("First Name is Empty!");
+            document.membership_form.first_name.focus();
+            return false;
+        } else if (document.membership_form.last_name.value === "") {
+            showWarningToasty("Last Name is Empty!");
+            document.membership_form.last_name.focus();
+            return false;
+        } else if (document.membership_form.email.value === "") {
+            showWarningToasty("Email is Empty!");
+            document.membership_form.email.focus();
+            return false;
+        } else if (document.membership_form.contact_no.value === "") {
+            showWarningToasty("Contact No is Empty!");
+            document.membership_form.contact_no.focus();
+            return false;
+        } else if (document.membership_form.date_of_birth.value === "") {
+            showWarningToasty("Date of Birth is Empty!");
+            document.membership_form.date_of_birth.focus();
+            return false;
+        }
+    }
+</script>
 {% endblock %}

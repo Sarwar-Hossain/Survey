@@ -53,9 +53,187 @@ def login(request):
 def customer_survey_report(request):
     try:
         if request.session.has_key('user_name'):
-            demo = get_percentage(3, 5)
-            print(demo)
-            return render(request, 'customer_survey_app/customer-survey-report.html', {'demo': demo})
+            feedback = CustomerFeedback.objects.all()
+
+            # Question 1
+            question_1_true_part = 0
+            question_1_false_part = 0
+            question_1_whole = 0
+
+            for dt in feedback:
+                if dt.question_1 is True:
+                    question_1_true_part = question_1_true_part + 1
+                    question_1_whole = question_1_whole + 1
+                elif dt.question_1 is False:
+                    question_1_false_part = question_1_false_part + 1
+                    question_1_whole = question_1_whole + 1
+                else:
+                    question_1_whole = question_1_whole + 1
+
+            question_1_true = get_percentage(question_1_true_part, question_1_whole)
+            question_1_false = get_percentage(question_1_false_part, question_1_whole)
+
+            # Question 2
+            question_2_friendly_part = 0
+            question_2_knowledgeable_part = 0
+            question_2_helpful_part = 0
+            question_2_whole = 0
+
+            for dt in feedback:
+                if dt.question_2 == 'Friendly':
+                    question_2_friendly_part = question_2_friendly_part + 1
+                    question_2_whole = question_2_whole + 1
+                elif dt.question_2 == 'Knowledgeable':
+                    question_2_knowledgeable_part = question_2_knowledgeable_part + 1
+                    question_2_whole = question_2_whole + 1
+                elif dt.question_2 == 'Helpful':
+                    question_2_helpful_part = question_2_helpful_part + 1
+                    question_2_whole = question_2_whole + 1
+                else:
+                    question_2_whole = question_2_whole + 1
+
+            question_2_friendly = get_percentage(question_2_friendly_part, question_2_whole)
+            question_2_knowledgeable = get_percentage(question_2_knowledgeable_part, question_2_whole)
+            question_2_helpful = get_percentage(question_2_helpful_part, question_2_whole)
+
+            # Question 3
+            question_3_slightly_part = 0
+            question_3_moderate_part = 0
+            question_3_strongly_part = 0
+            question_3_whole = 0
+
+            for dt in feedback:
+                if dt.question_3 == 'Slightly':
+                    question_3_slightly_part = question_3_slightly_part + 1
+                    question_3_whole = question_3_whole + 1
+                elif dt.question_3 == 'Moderate':
+                    question_3_moderate_part = question_3_moderate_part + 1
+                    question_3_whole = question_3_whole + 1
+                elif dt.question_3 == 'Strongly':
+                    question_3_strongly_part = question_3_strongly_part + 1
+                    question_3_whole = question_3_whole + 1
+                else:
+                    question_3_whole = question_3_whole + 1
+
+            question_3_slightly = get_percentage(question_3_slightly_part, question_3_whole)
+            question_3_moderate = get_percentage(question_3_moderate_part, question_3_whole)
+            question_3_strongly = get_percentage(question_3_strongly_part, question_3_whole)
+
+            # Question 4
+            question_4_true_part = 0
+            question_4_false_part = 0
+            question_4_whole = 0
+
+            for dt in feedback:
+                if dt.question_4 is True:
+                    question_4_true_part = question_4_true_part + 1
+                    question_4_whole = question_4_whole + 1
+                elif dt.question_4 is False:
+                    question_4_false_part = question_4_false_part + 1
+                    question_4_whole = question_4_whole + 1
+                else:
+                    question_4_whole = question_4_whole + 1
+
+            question_4_true = get_percentage(question_4_true_part, question_4_whole)
+            question_4_false = get_percentage(question_4_false_part, question_4_whole)
+
+            # Question 5
+            question_5_true_part = 0
+            question_5_false_part = 0
+            question_5_whole = 0
+
+            for dt in feedback:
+                if dt.question_5 is True:
+                    question_5_true_part = question_5_true_part + 1
+                    question_5_whole = question_5_whole + 1
+                elif dt.question_5 is False:
+                    question_5_false_part = question_5_false_part + 1
+                    question_5_whole = question_5_whole + 1
+                else:
+                    question_5_whole = question_5_whole + 1
+
+            question_5_true = get_percentage(question_5_true_part, question_5_whole)
+            question_5_false = get_percentage(question_5_false_part, question_5_whole)
+
+            # Question 6
+            question_6_small_part = 0
+            question_6_medium_part = 0
+            question_6_large_part = 0
+            question_6_extra_large_part = 0
+            question_6_extra_extra_large_part = 0
+            question_6_whole = 0
+
+            for dt in feedback:
+                if dt.question_6 == 'Small':
+                    question_6_small_part = question_6_small_part + 1
+                    question_6_whole = question_6_whole + 1
+                elif dt.question_6 == 'Medium':
+                    question_6_medium_part = question_6_medium_part + 1
+                    question_6_whole = question_6_whole + 1
+                elif dt.question_6 == 'Large':
+                    question_6_large_part = question_6_large_part + 1
+                    question_6_whole = question_6_whole + 1
+                elif dt.question_6 == 'Extra Large':
+                    question_6_extra_large_part = question_6_extra_large_part + 1
+                    question_6_whole = question_6_whole + 1
+                elif dt.question_6 == 'Extra Extra Large':
+                    question_6_extra_extra_large_part = question_6_extra_extra_large_part + 1
+                    question_6_whole = question_6_whole + 1
+                else:
+                    question_6_whole = question_6_whole + 1
+
+            question_6_small = get_percentage(question_6_small_part, question_6_whole)
+            question_6_medium = get_percentage(question_6_medium_part, question_6_whole)
+            question_6_large = get_percentage(question_6_large_part, question_6_whole)
+            question_6_extra_large = get_percentage(question_6_extra_large_part, question_6_whole)
+            question_6_extra_extra_large = get_percentage(question_6_extra_extra_large_part, question_6_whole)
+
+            # Question 7
+            question_7_black_part = 0
+            question_7_white_part = 0
+            question_7_others_part = 0
+            question_7_whole = 0
+
+            for dt in feedback:
+                if dt.question_7 == 'Black':
+                    question_7_black_part = question_7_black_part + 1
+                    question_7_whole = question_7_whole + 1
+                elif dt.question_7 == 'White':
+                    question_7_white_part = question_7_white_part + 1
+                    question_7_whole = question_7_whole + 1
+                elif dt.question_7 == 'Others':
+                    question_7_others_part = question_7_others_part + 1
+                    question_7_whole = question_7_whole + 1
+                else:
+                    question_7_whole = question_7_whole + 1
+
+            question_7_black = get_percentage(question_7_black_part, question_7_whole)
+            question_7_white = get_percentage(question_7_white_part, question_7_whole)
+            question_7_others = get_percentage(question_7_others_part, question_7_whole)
+
+            context = {
+                'question_1_true': question_1_true,
+                'question_1_false': question_1_false,
+                'question_2_friendly': question_2_friendly,
+                'question_2_knowledgeable': question_2_knowledgeable,
+                'question_2_helpful': question_2_helpful,
+                'question_3_slightly': question_3_slightly,
+                'question_3_moderate': question_3_moderate,
+                'question_3_strongly': question_3_strongly,
+                'question_4_true': question_4_true,
+                'question_4_false': question_4_false,
+                'question_5_true': question_5_true,
+                'question_5_false': question_5_false,
+                'question_6_small': question_6_small,
+                'question_6_medium': question_6_medium,
+                'question_6_large': question_6_large,
+                'question_6_extra_large': question_6_extra_large,
+                'question_6_extra_extra_large': question_6_extra_extra_large,
+                'question_7_black': question_7_black,
+                'question_7_white': question_7_white,
+                'question_7_others': question_7_others,
+            }
+            return render(request, 'customer_survey_app/customer-survey-report.html', context)
         else:
             return redirect('login')
     except KeyError as e:
@@ -238,10 +416,10 @@ def customer_feedback(request):
                 question_3 = request.POST.get('question_3')
                 question_4 = request.POST.get('question_4')
                 question_5 = request.POST.get('question_5')
-                question_6 = request.POST.get('question_6').strip().capitalize()
-                question_7 = request.POST.get('question_7').strip().capitalize()
-                question_8 = request.POST.get('question_8').strip().capitalize()
-                address = request.POST.get('address').strip().capitalize()
+                question_6 = request.POST.get('question_6')
+                question_7 = request.POST.get('question_7')
+                question_8 = request.POST.get('question_8')
+                address = request.POST.get('address')
 
                 create_feedback = CustomerFeedback.objects.create(question_1=question_1,
                                                                   question_2=question_2,
@@ -299,7 +477,7 @@ def delete_user(request):
     return JsonResponse(context)
 
 
-# Covert into Boolean Field
+# String Covert into Boolean Field
 def str_to_bool(radio_button_value):
     if radio_button_value == 'True':
         return True
@@ -311,5 +489,6 @@ def str_to_bool(radio_button_value):
 
 # Get Percentage
 def get_percentage(part, whole):
-    percentage = 100 * float(part)/float(whole)
-    return str(percentage) + '%'
+    percentage = 100 * float(part) / float(whole)
+    limited_float_percentage = ("%.2f" % percentage)
+    return str(limited_float_percentage) + '%'
