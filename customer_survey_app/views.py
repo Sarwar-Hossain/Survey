@@ -306,11 +306,16 @@ def create_shop_user(request):
                     shop_id = request.POST.get('shop_id').strip()
                     encoded_password = AESCipher().encrypt(password)
 
+                    if mobile_no != '' and not mobile_no.startswith('+88'):
+                        number = '+88' + mobile_no
+                    else:
+                        number = mobile_no
+
                     user_update = ShopUser.objects.filter(id=user_id).update(user_name=user_name,
                                                                              email=email,
                                                                              password=encoded_password,
                                                                              shop_name=shop_name,
-                                                                             mobile_no=mobile_no,
+                                                                             mobile_no=number,
                                                                              shop_id=shop_id,
                                                                              updated_by=super_admin,
                                                                              updated_time=datetime.now())
