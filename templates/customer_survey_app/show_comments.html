@@ -1,0 +1,115 @@
+{% extends 'customer_survey_app/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    #more {
+        display: none;
+    }
+</style>
+<div class="main-layout-bg show-comment-layout">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <a href="{% url 'logout' %}" class="btn btn-primary log-out-btn" type="button">log out</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container p-2">
+        <div class="loyalty-membership">
+            <div class="row">
+                {% for m in customer_feedbacks %}
+                <div class="row m-1">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="card show-comment-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Customer Suggestion</h5>
+
+                                <p>{{m.question_8|truncatechars:150}}<span class="{{m.id}}">...</span><span
+                                        class="{{m.id}} d-none">{{m.question_8}}</span>
+                                </p>
+                                <button class="btn btn-primary myBtn" onclick="customFunc({{m.id}})" id="">Read more
+                                </button>
+                                <!--                                <p class="card-text">{{m.question_8}}</p>-->
+                                <!--                                <a href="#" class="btn btn-primary">See more</a>-->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="card show-comment-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Customer Recommendations</h5>
+                                <p class="card-text">{{m.address}}</p>
+                                <a href="#" class="btn btn-primary">See more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="w-100 text-center">
+            <a class="btn btn-primary login-btn"
+               href="{% url 'customer_survey_report' %}">Back To Home</a>
+        </div>
+    </div>
+
+    <!--Pagination-->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center" style="padding-bottom: 50px">
+            {% if customer_feedbacks.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ customer_feedbacks.previous_page_number }}">Previous</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Previous</a>
+            </li>
+            {% endif %}
+
+            {% if customer_feedbacks.number|add:'-4' > 1 %}
+            <li class="page-item"><a class="page-link"
+                                     href="?page={{ customer_feedbacks.number|add:'-5' }}">&hellip;</a>
+            </li>
+            {% endif %}
+
+            {% for i in customer_feedbacks.paginator.page_range %}
+            {% if customer_feedbacks.number == i %}
+            <li class="page-item active" aria-current="page">
+              <span class="page-link">
+                {{ i }}
+                <span class="sr-only">(current)</span>
+              </span>
+            </li>
+            {% elif i > customer_feedbacks.number|add:'-5' and i < customer_feedbacks.number|add:'5' %}
+            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+
+            {% if customer_feedbacks.paginator.num_pages > customer_feedbacks.number|add:'4' %}
+            <li class="page-item"><a class="page-link" href="?page={{ customer_feedbacks.number|add:'5' }}">&hellip;</a>
+            </li>
+            {% endif %}
+
+            {% if customer_feedbacks.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ customer_feedbacks.next_page_number }}">Next</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Next</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+<script>
+    function customFunc(el) {
+        console.log(el.toString());
+        $('.' + el.toString()).toggleClass('d-none');
+    }
+
+</script>
+{% endblock %}

@@ -1,10 +1,12 @@
-from datetime import datetime
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from customer_survey_app.models import *
 from django.contrib import messages
 from customer_survey_app.aes_cipher import AESCipher
 from django.db import connection
+from datetime import datetime
+from django.shortcuts import render
+from django.core.paginator import Paginator
 
 cursor = connection.cursor()
 
@@ -430,6 +432,25 @@ def thank_you(request):
         return redirect('thank_you')
 
 
+def show_comments(request):
+    try:
+        if request.session.has_key('user_name'):
+            customer_feedbacks = CustomerFeedback.objects.all()
+            paginator = Paginator(customer_feedbacks, 3)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            return render(request=request, template_name="customer_survey_app/show_comments.html",
+                          context={'customer_feedbacks': page_obj})
+        else:
+            return redirect('login')
+    except KeyError as e:
+        print(e)
+        return redirect('thank_you')
+    except Exception as e:
+        print(e)
+        return redirect('thank_you')
+
+
 def logout(request):
     request.session.clear()
     return redirect('login')
@@ -462,3 +483,5 @@ def get_percentage(part, whole):
     percentage = 100 * float(part) / float(whole)
     limited_float_percentage = ("%.2f" % percentage)
     return str(limited_float_percentage) + '%'
+
+
