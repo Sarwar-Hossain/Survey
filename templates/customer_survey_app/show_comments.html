@@ -26,10 +26,12 @@
                             <div class="card-body">
                                 <h5 class="card-title">Customer Suggestion</h5>
 
-                                <p>{{m.question_8|truncatechars:150}}<span class="{{m.id}}">...</span><span
-                                        class="{{m.id}} d-none">{{m.question_8}}</span>
+                                <p>{{m.question_8|truncatewords:11}}<span class="Sug{{m.id}}">
+                                    {% if m.question_8|length > 11 %}...</span><span
+                                        class="Sug{{m.id}} d-none">{{m.question_8|slice:"11:"}}</span>
+                                    {% endif %}
                                 </p>
-                                <button class="btn btn-primary myBtn" onclick="customFunc({{m.id}})" id="">Read more
+                                <button class="btn btn-primary myBtn" onclick="customFunc('Sug'+{{m.id}})" id="">Read more
                                 </button>
                                 <!--                                <p class="card-text">{{m.question_8}}</p>-->
                                 <!--                                <a href="#" class="btn btn-primary">See more</a>-->
@@ -40,8 +42,16 @@
                         <div class="card show-comment-card">
                             <div class="card-body">
                                 <h5 class="card-title">Customer Recommendations</h5>
-                                <p class="card-text">{{m.address}}</p>
-                                <a href="#" class="btn btn-primary">See more</a>
+                                <p>{{m.address|truncatewords:11}}<span class="Rec{{m.id}}">
+                                    {% if m.address|length > 11 %}...</span><span
+                                        class="Rec{{m.id}} d-none">{{m.address|slice:"11:"}}</span>
+                                    {% endif %}
+                                </p>
+                                <button class="btn btn-primary myBtn" onclick="customFunc('Rec'+{{m.id}})" id="">Read more
+                                </button>
+
+                                <!--                                <p class="card-text">{{m.address}}</p>-->
+                                <!--                                <a href="#" class="btn btn-primary">See more</a>-->
                             </div>
                         </div>
                     </div>
@@ -106,8 +116,9 @@
 </div>
 
 <script>
+
     function customFunc(el) {
-        console.log(el.toString());
+        // console.log(el.toString());
         $('.' + el.toString()).toggleClass('d-none');
     }
 

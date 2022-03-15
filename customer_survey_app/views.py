@@ -435,7 +435,7 @@ def thank_you(request):
 def show_comments(request):
     try:
         if request.session.has_key('user_name'):
-            customer_feedbacks = CustomerFeedback.objects.all()
+            customer_feedbacks = CustomerFeedback.objects.all().order_by('-created_time')
             paginator = Paginator(customer_feedbacks, 3)
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
