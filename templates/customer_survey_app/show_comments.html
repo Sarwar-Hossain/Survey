@@ -18,6 +18,14 @@
 
     <div class="container p-2">
         <div class="loyalty-membership">
+            <div class="loyalty-title-flex">
+                <div class="title-box">
+                    <h3>WHAT CUSTOMER SAY ABOUT YOU</h3>
+                </div>
+                <div class="logo-box">
+                    <img src="{% static 'icon-images/rise.png' %}" alt="" class="img-fluid">
+                </div>
+            </div>
             <div class="row">
                 {% for m in customer_feedbacks %}
                 <div class="row m-1">
@@ -25,13 +33,14 @@
                         <div class="card show-comment-card">
                             <div class="card-body">
                                 <h5 class="card-title">Customer Suggestion</h5>
-                                <p class="card-title">Customer: {{m.customer_name}}</p>
-                                <p class="card-title">{{m.question_8|truncatewords:11}}<span class="Sug{{m.id}}">
+                                <p class="card-title">Name: {{m.customer_name}}</p>
+                                <p>{{m.question_8|truncatewords:11}}<span class="Sug{{m.id}}">
                                     {% if m.question_8|length > 11 %}...</span><span
                                         class="Sug{{m.id}} d-none">{{m.question_8|slice:"11:"}}</span>
                                     {% endif %}
                                 </p>
-                                <button class="btn btn-primary myBtn" onclick="customFunc('Sug'+{{m.id}})" id="">Read more
+                                <button class="btn btn-primary myBtn" onclick="customFunc('Sug'+{{m.id}})" id="">Read
+                                    more
                                 </button>
                                 <!--                                <p class="card-text">{{m.question_8}}</p>-->
                                 <!--                                <a href="#" class="btn btn-primary">See more</a>-->
@@ -42,13 +51,14 @@
                         <div class="card show-comment-card">
                             <div class="card-body">
                                 <h5 class="card-title">Customer Recommendations</h5>
-                                <p class="card-title">Customer: {{m.customer_name}}</p>
-                                <p class="card-title">{{m.question_9|truncatewords:11}}<span class="Rec{{m.id}}">
+                                <p class="card-title">Name: {{m.customer_name}}</p>
+                                <p>{{m.question_9|truncatewords:11}}<span class="Rec{{m.id}}">
                                     {% if m.question_9|length > 11 %}...</span><span
                                         class="Rec{{m.id}} d-none">{{m.question_9|slice:"11:"}}</span>
                                     {% endif %}
                                 </p>
-                                <button class="btn btn-primary myBtn" onclick="customFunc('Rec'+{{m.id}})" id="">Read more
+                                <button class="btn btn-primary myBtn" onclick="customFunc('Rec'+{{m.id}})" id="">Read
+                                    more
                                 </button>
 
                                 <!--                                <p class="card-text">{{m.address}}</p>-->

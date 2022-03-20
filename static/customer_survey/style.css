@@ -388,8 +388,13 @@ p.sincere {
     outline: none;
 }
 
-
-
+.footer{
+    background: #34353a;
+    color: #c79439;
+}
+.pagination{
+    margin-bottom: 0;
+}
 
 
 
