@@ -28,18 +28,10 @@ class Category(models.Model):
 class Customer(models.Model):
     objects = None
 
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-
-    membership_no = models.IntegerField(null=False, blank=False)
+    membership_no = models.IntegerField(null=True, blank=True, max_length=15)
     in_voice_no = models.IntegerField(null=False, blank=False)
     title = models.CharField(max_length=100, blank=False, null=False)
-    first_name = models.CharField(max_length=100, blank=False, null=False)
-    last_name = models.CharField(max_length=100, blank=False, null=False)
-    email = models.EmailField(max_length=100, null=False, blank=False)
-    contact_no = models.CharField(max_length=15, null=True)
-    date_of_birth = models.DateField(blank=False, null=False)
     marital_status = models.CharField(max_length=100, blank=True, null=True, default='')
-    address = models.CharField(max_length=200, null=True, blank=True)
     created_time = models.DateTimeField(auto_now_add=True, null=True)
     created_by = models.CharField(max_length=100, blank=False, null=False, default='')
 
@@ -55,6 +47,8 @@ class CustomerFeedback(models.Model):
     question_6 = models.TextField(blank=False, null=False)
     question_7 = models.TextField(blank=False, null=False)
     question_8 = models.TextField(blank=False, null=False)
-    address = models.TextField(blank=False, null=False)
+    question_9 = models.TextField(blank=False, null=False)
     created_time = models.DateTimeField(auto_now_add=True, null=True)
     created_by = models.CharField(max_length=100, blank=False, null=False, default='')
+    membership_no = models.IntegerField(null=True, blank=True, max_length=15)
+    customer_name = models.CharField(max_length=100, blank=False, null=False, default='')
