@@ -332,175 +332,7 @@ def create_shop_user(request):
         return redirect('create_shop_user')
 
 
-# def loylity_membership(request):
-#     try:
-#         if request.session.has_key('user_name'):
-#             user_name = request.session['user_name']
-#             categories = Category.objects.all()
-#             if 'button_submit' in request.POST:
-#                 membership_no = request.POST.get('membership_no')
-#                 in_voice_no = request.POST.get('in_voice_no')
-#                 category_id = request.POST.get('category_id')
-#                 title = request.POST.get('title')
-#                 first_name = request.POST.get('first_name')
-#                 last_name = request.POST.get('last_name')
-#                 email = request.POST.get('email')
-#                 contact_no = request.POST.get('contact_no')
-#                 date_of_birth = request.POST.get('date_of_birth')
-#                 marital_status = request.POST.get('marital_status')
-#                 address = request.POST.get('address')
-#
-#                 if contact_no != '' and not contact_no.startswith('+88'):
-#                     number = '+88' + contact_no
-#                 else:
-#                     number = contact_no
-#
-#                 create_member = Customer.objects.create(membership_no=membership_no,
-#                                                         in_voice_no=in_voice_no,
-#                                                         category_id=category_id,
-#                                                         title=title,
-#                                                         first_name=first_name,
-#                                                         last_name=last_name,
-#                                                         email=email,
-#                                                         contact_no=number,
-#                                                         date_of_birth=date_of_birth,
-#                                                         marital_status=marital_status,
-#                                                         address=address,
-#                                                         created_by=user_name,
-#                                                         created_time=datetime.now())
-#                 messages.success(request, 'Form Submitted')
-#                 return redirect('customer_feedback')
-#             else:
-#                 return render(request, 'customer_survey_app/loyalty-membership-form.html', {'categories': categories})
-#         else:
-#             return redirect('login')
-#     except KeyError as e:
-#         print(e)
-#         return redirect('loylity_membership')
-#     except Exception as e:
-#         print(e)
-#         return redirect('loylity_membership')
-
-
-def customer_feedback(request, membership_no, customer_name):
-    try:
-        if request.session.has_key('user_name'):
-            membership_no = membership_no
-            customer_name = customer_name
-            user_name = request.session['user_name']
-            if 'button_submit' in request.POST:
-                question_1 = request.POST.get('question_1')
-                question_2 = request.POST.get('question_2')
-                question_3 = request.POST.get('question_3')
-                question_4 = request.POST.get('question_4')
-                question_5 = request.POST.get('question_5')
-                question_6 = request.POST.get('question_6')
-                question_7 = request.POST.get('question_7')
-                question_8 = request.POST.get('question_8')
-                question_9 = request.POST.get('question_9')
-
-                create_feedback = CustomerFeedback.objects.create(question_1=question_1,
-                                                                  question_2=question_2,
-                                                                  question_3=question_3,
-                                                                  question_4=question_4,
-                                                                  question_5=question_5,
-                                                                  question_6=question_6,
-                                                                  question_7=question_7,
-                                                                  question_8=question_8,
-                                                                  membership_no=membership_no,
-                                                                  customer_name=customer_name,
-                                                                  question_9=question_9,
-                                                                  created_by=user_name,
-                                                                  created_time=datetime.now())
-                messages.success(request, 'Data Saved!!!')
-                return redirect('thank_you')
-            else:
-                return render(request, 'customer_survey_app/customer-feedback-form.html')
-        else:
-            return redirect('login')
-    except KeyError as e:
-        print(e)
-        return redirect('customer_feedback')
-    except Exception as e:
-        print(e)
-        return redirect('customer_feedback')
-
-
-def thank_you(request):
-    try:
-        if request.session.has_key('user_name'):
-            return render(request, 'customer_survey_app/thank-you.html')
-        else:
-            return redirect('login')
-    except KeyError as e:
-        print(e)
-        return redirect('thank_you')
-    except Exception as e:
-        print(e)
-        return redirect('thank_you')
-
-
-def show_comments(request):
-    try:
-        if request.session.has_key('user_name'):
-            customer_feedbacks = CustomerFeedback.objects.all().order_by('-created_time')
-            paginator = Paginator(customer_feedbacks, 3)
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
-            return render(request=request, template_name="customer_survey_app/show_comments.html",
-                          context={'customer_feedbacks': page_obj})
-        else:
-            return redirect('login')
-    except KeyError as e:
-        print(e)
-        return redirect('thank_you')
-    except Exception as e:
-        print(e)
-        return redirect('thank_you')
-
-
-def logout(request):
-    request.session.clear()
-    return redirect('login')
-
-
-# Delete User
-
-def delete_user(request):
-    user_id = request.GET.get('user_id')
-    user_deleted = ShopUser.objects.filter(id=user_id).delete()
-    context = {
-        'toast_type': 'info',
-        'toast_message': 'User Deleted Successfully!!',
-    }
-    return JsonResponse(context)
-
-
-# String Covert into Boolean Field
-def str_to_bool(radio_button_value):
-    if radio_button_value == 'True':
-        return True
-    elif radio_button_value is None:
-        return False
-    else:
-        raise ValueError
-
-
-# Get Percentage
-def get_percentage(part, whole):
-    percentage = 100 * float(part) / float(whole)
-    limited_float_percentage = ("%.2f" % percentage)
-    return str(limited_float_percentage) + '%'
-
-
-# Generate Random Customer ID
-def random_with_N_digits(n):
-    range_start = 10 ** (n - 1)
-    range_end = (10 ** n) - 1
-    return randint(range_start, range_end)
-
-
-def customer_post_api(request):
+def loylity_member_save(request):
     try:
         if request.session.has_key('user_name'):
             # GET
@@ -593,7 +425,125 @@ def customer_post_api(request):
             return redirect('login')
     except KeyError as e:
         print(e)
+        return redirect('loylity_membership')
+    except Exception as e:
+        print(e)
+        return redirect('loylity_membership')
+
+
+def customer_feedback(request, membership_no, customer_name):
+    try:
+        if request.session.has_key('user_name'):
+            membership_no = membership_no
+            customer_name = customer_name
+            user_name = request.session['user_name']
+            if 'button_submit' in request.POST:
+                question_1 = request.POST.get('question_1')
+                question_2 = request.POST.get('question_2')
+                question_3 = request.POST.get('question_3')
+                question_4 = request.POST.get('question_4')
+                question_5 = request.POST.get('question_5')
+                question_6 = request.POST.get('question_6')
+                question_7 = request.POST.get('question_7')
+                question_8 = request.POST.get('question_8')
+                question_9 = request.POST.get('question_9')
+
+                create_feedback = CustomerFeedback.objects.create(question_1=question_1,
+                                                                  question_2=question_2,
+                                                                  question_3=question_3,
+                                                                  question_4=question_4,
+                                                                  question_5=question_5,
+                                                                  question_6=question_6,
+                                                                  question_7=question_7,
+                                                                  question_8=question_8,
+                                                                  membership_no=membership_no,
+                                                                  customer_name=customer_name,
+                                                                  question_9=question_9,
+                                                                  created_by=user_name,
+                                                                  created_time=datetime.now())
+                messages.success(request, 'Data Saved!!!')
+                return redirect('thank_you')
+            else:
+                return render(request, 'customer_survey_app/customer-feedback-form.html')
+        else:
+            return redirect('login')
+    except KeyError as e:
+        print(e)
         return redirect('customer_feedback')
     except Exception as e:
         print(e)
         return redirect('customer_feedback')
+
+
+def thank_you(request):
+    try:
+        if request.session.has_key('user_name'):
+            return render(request, 'customer_survey_app/thank-you.html')
+        else:
+            return redirect('login')
+    except KeyError as e:
+        print(e)
+        return redirect('thank_you')
+    except Exception as e:
+        print(e)
+        return redirect('thank_you')
+
+
+def show_comments(request):
+    try:
+        if request.session.has_key('user_name'):
+            customer_feedbacks = CustomerFeedback.objects.all().order_by('-created_time')
+            paginator = Paginator(customer_feedbacks, 3)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
+            return render(request=request, template_name="customer_survey_app/show_comments.html",
+                          context={'customer_feedbacks': page_obj})
+        else:
+            return redirect('login')
+    except KeyError as e:
+        print(e)
+        return redirect('show_comments')
+    except Exception as e:
+        print(e)
+        return redirect('show_comments')
+
+
+def logout(request):
+    request.session.clear()
+    return redirect('login')
+
+
+# Delete User
+
+def delete_user(request):
+    user_id = request.GET.get('user_id')
+    user_deleted = ShopUser.objects.filter(id=user_id).delete()
+    context = {
+        'toast_type': 'info',
+        'toast_message': 'User Deleted Successfully!!',
+    }
+    return JsonResponse(context)
+
+
+# String Covert into Boolean Field
+def str_to_bool(radio_button_value):
+    if radio_button_value == 'True':
+        return True
+    elif radio_button_value is None:
+        return False
+    else:
+        raise ValueError
+
+
+# Get Percentage
+def get_percentage(part, whole):
+    percentage = 100 * float(part) / float(whole)
+    limited_float_percentage = ("%.2f" % percentage)
+    return str(limited_float_percentage) + '%'
+
+
+# Generate Random Customer ID
+def random_with_N_digits(n):
+    range_start = 10 ** (n - 1)
+    range_end = (10 ** n) - 1
+    return randint(range_start, range_end)

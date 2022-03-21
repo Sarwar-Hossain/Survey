@@ -7,7 +7,7 @@ urlpatterns = [
                   path('', views.login, name='login'),
                   path('customer/survey/report/', views.customer_survey_report, name='customer_survey_report'),
                   path('create/shop/user', views.create_shop_user, name='create_shop_user'),
-                  path('loylity/membership/form/', views.customer_post_api, name='loylity_membership'),
+                  path('loylity/membership/form/', views.loylity_member_save, name='loylity_membership'),
                   path('customer/feedback/form/<int:membership_no>/<customer_name>/', views.customer_feedback,
                        name='customer_feedback'),
                   path('thank/you/', views.thank_you, name='thank_you'),

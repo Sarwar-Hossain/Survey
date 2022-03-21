@@ -39,9 +39,11 @@
                                         class="Sug{{m.id}} d-none">{{m.question_8|slice:"11:"}}</span>
                                     {% endif %}
                                 </p>
+                                {% if m.question_8|length > 11 %}
                                 <button class="btn btn-primary myBtn" onclick="customFunc('Sug'+{{m.id}})" id="">Read
                                     more
                                 </button>
+                                {% endif %}
                                 <!--                                <p class="card-text">{{m.question_8}}</p>-->
                                 <!--                                <a href="#" class="btn btn-primary">See more</a>-->
                             </div>
@@ -57,10 +59,11 @@
                                         class="Rec{{m.id}} d-none">{{m.question_9|slice:"11:"}}</span>
                                     {% endif %}
                                 </p>
+                                {% if m.question_9|length > 11 %}
                                 <button class="btn btn-primary myBtn" onclick="customFunc('Rec'+{{m.id}})" id="">Read
                                     more
                                 </button>
-
+                                {% endif %}
                                 <!--                                <p class="card-text">{{m.address}}</p>-->
                                 <!--                                <a href="#" class="btn btn-primary">See more</a>-->
                             </div>
