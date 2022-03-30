@@ -50,7 +50,7 @@ def login(request):
                     messages.error(request, 'User Credential Didn\'t Match!')
                     return render(request, 'customer_survey_app/log-in.html')
         else:
-            return redirect('log-in')
+            return render(request, 'customer_survey_app/log-in.html')
     except KeyError as e:
         print(e)
         return redirect('login')
