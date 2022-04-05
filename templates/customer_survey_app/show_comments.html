@@ -40,7 +40,8 @@
                                     {% endif %}
                                 </p>
                                 {% if m.question_8|length > 11 %}
-                                <button class="btn btn-primary myBtn" onclick="customFunc('Sug'+{{m.id}})" id="">Read
+                                <button class="btn btn-primary myBtn" onclick="customFunc('Sug'+{{m.id}},this)" id="">
+                                    Read
                                     more
                                 </button>
                                 {% endif %}
@@ -60,7 +61,8 @@
                                     {% endif %}
                                 </p>
                                 {% if m.question_9|length > 11 %}
-                                <button class="btn btn-primary myBtn" onclick="customFunc('Rec'+{{m.id}})" id="">Read
+                                <button class="btn btn-primary myBtn" onclick="customFunc('Rec'+{{m.id}},this)" id="">
+                                    Read
                                     more
                                 </button>
                                 {% endif %}
@@ -131,8 +133,13 @@
 
 <script>
 
-    function customFunc(el) {
-        // console.log(el.toString());
+    function customFunc(el, nn) {
+        // console.log(el.toString(), nn.innerText);
+        if (nn.innerText == "Read more") {
+            nn.innerText = "Show less";
+        } else {
+            nn.innerText = "Read more"
+        }
         $('.' + el.toString()).toggleClass('d-none');
     }
 
