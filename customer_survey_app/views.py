@@ -420,7 +420,7 @@ def loylity_member_save(request):
                     messages.success(request, 'Data Saved!!!')
                     return redirect('customer_feedback', membership_no, first_name)
                 else:
-                    messages.error(request, 'Something went wrong with API!!!')
+                    messages.error(request, 'Mobile No Already Exits!!!')
                     return redirect('loylity_membership')
 
             return render(request, 'customer_survey_app/loyalty-membership-form.html', context)
