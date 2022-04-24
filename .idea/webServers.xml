@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="58db69b3-dc7d-48c2-a45d-dbdb8ce24bdb" name="National Server">
+        <fileTransfer rootFolder="/root/RISE" accessType="SFTP" host="103.123.8.225" port="22" sshConfigId="2472d22e-b75d-413d-b330-e480c6c91983" sshConfig="root@103.123.8.225:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

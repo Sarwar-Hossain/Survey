@@ -15,7 +15,7 @@ from random import randint
 cursor = connection.cursor()
 
 
-def login(request):
+def login(request, message='', is_error=1):
     try:
         # clear all session
         request.session.flush()
@@ -49,11 +49,16 @@ def login(request):
                 else:
                     messages.error(request, 'User Credential Didn\'t Match!')
                     return render(request, 'customer_survey_app/log-in.html')
+        if message and is_error == 1:
+            return render(request, 'customer_survey_app/log-in.html')
+
+        elif message and is_error == 0:
+            return render(request, 'customer_survey_app/log-in.html')
         else:
             return render(request, 'customer_survey_app/log-in.html')
     except KeyError as e:
         print(e)
-        return redirect('login')
+        return render(request, 'customer_survey_app/log-in.html')
     except Exception as e:
         print(e)
         return render(request, 'customer_survey_app/log-in.html')
@@ -209,10 +214,10 @@ def customer_survey_report(request):
             return redirect('login')
     except KeyError as e:
         print(e)
-        return redirect('customer_survey_report')
+        return redirect('login')
     except Exception as e:
         print(e)
-        return redirect('customer_survey_report')
+        return redirect('login')
 
 
 def create_shop_user(request):
@@ -326,10 +331,10 @@ def create_shop_user(request):
             return redirect('login')
     except KeyError as e:
         print(e)
-        return redirect('create_shop_user')
+        return redirect('login')
     except Exception as e:
         print(e)
-        return redirect('create_shop_user')
+        return redirect('login')
 
 
 def loylity_member_save(request):
@@ -428,10 +433,10 @@ def loylity_member_save(request):
             return redirect('login')
     except KeyError as e:
         print(e)
-        return redirect('loylity_membership')
+        return redirect('login')
     except Exception as e:
         print(e)
-        return redirect('loylity_membership')
+        return redirect('login')
 
 
 def customer_feedback(request, membership_no, customer_name):
@@ -472,10 +477,10 @@ def customer_feedback(request, membership_no, customer_name):
             return redirect('login')
     except KeyError as e:
         print(e)
-        return redirect('customer_feedback')
+        return redirect('login')
     except Exception as e:
         print(e)
-        return redirect('customer_feedback')
+        return redirect('login')
 
 
 def thank_you(request):
@@ -486,10 +491,10 @@ def thank_you(request):
             return redirect('login')
     except KeyError as e:
         print(e)
-        return redirect('thank_you')
+        return redirect('login')
     except Exception as e:
         print(e)
-        return redirect('thank_you')
+        return redirect('login')
 
 
 def show_comments(request):
@@ -505,10 +510,10 @@ def show_comments(request):
             return redirect('login')
     except KeyError as e:
         print(e)
-        return redirect('show_comments')
+        return redirect('login')
     except Exception as e:
         print(e)
-        return redirect('show_comments')
+        return redirect('login')
 
 
 def logout(request):
