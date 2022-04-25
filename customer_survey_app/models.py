@@ -28,7 +28,7 @@ class Category(models.Model):
 class Customer(models.Model):
     objects = None
 
-    membership_no = models.IntegerField(null=True, blank=True, max_length=15)
+    membership_no = models.IntegerField(null=True, blank=True)
     in_voice_no = models.IntegerField(null=False, blank=False)
     title = models.CharField(max_length=100, blank=False, null=False)
     marital_status = models.CharField(max_length=100, blank=True, null=True, default='')
@@ -50,5 +50,5 @@ class CustomerFeedback(models.Model):
     question_9 = models.TextField(blank=False, null=False)
     created_time = models.DateTimeField(auto_now_add=True, null=True)
     created_by = models.CharField(max_length=100, blank=False, null=False, default='')
-    membership_no = models.IntegerField(null=True, blank=True, max_length=15)
+    membership_no = models.IntegerField(null=True, blank=True)
     customer_name = models.CharField(max_length=100, blank=False, null=False, default='')
