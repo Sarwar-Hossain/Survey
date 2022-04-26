@@ -15,7 +15,7 @@ from random import randint
 cursor = connection.cursor()
 
 
-def login(request, message='', is_error=1):
+def login(request):
     try:
         # clear all session
         request.session.flush()
@@ -33,7 +33,7 @@ def login(request, message='', is_error=1):
                     if user.is_user_active:
                         request.session['user_name'] = user.user_name
                         messages.success(request, 'Login Successful!')
-                        return redirect('customer_survey_report')
+                        return render(request, 'customer_survey_app/customer-survey-report.html')
                     else:
                         messages.error(request, 'User isn\'t active!')
                         return render(request, 'customer_survey_app/log-in.html')
@@ -49,11 +49,6 @@ def login(request, message='', is_error=1):
                 else:
                     messages.error(request, 'User Credential Didn\'t Match!')
                     return render(request, 'customer_survey_app/log-in.html')
-        if message and is_error == 1:
-            return render(request, 'customer_survey_app/log-in.html')
-
-        elif message and is_error == 0:
-            return render(request, 'customer_survey_app/log-in.html')
         else:
             return render(request, 'customer_survey_app/log-in.html')
     except KeyError as e:
