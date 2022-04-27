@@ -1,0 +1,115 @@
+@media (max-width: 414px) {
+    body {
+        background: #34353a;
+    }
+
+    .main-layout-bg {
+
+        min-height: 91vh;
+
+    }
+
+    .main-layout-bg .login-box {
+        width: 100%;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 50px 20px;
+    }
+
+    .loyalty-membership {
+        margin: 60px 0;
+
+    }
+
+    .loyalty-membership .login-btn {
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    .loyalty-membership .loyalty-title-flex .logo-box img {
+        margin-left: 0;
+    }
+
+    .main-layout-bg .dataTable-top > div:last-child, .dataTable-bottom > div:last-child {
+        float: unset !important;
+    }
+
+    .main-layout-bg .dataTable-search .dataTable-input {
+        margin-top: 15px !important;
+    }
+}
+
+@media (min-width: 415px) and (max-width: 575px) {
+    body {
+        background: #34353a;
+    }
+
+    .main-layout-bg {
+
+        min-height: 85vh;
+
+    }
+
+    .main-layout-bg .login-box {
+        width: 80%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 50px 20px;
+        min-height: unset;
+    }
+    .loyalty-membership .loyalty-title-flex .logo-box img {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    body {
+        background: #34353a;
+    }
+
+    .main-layout-bg {
+
+        min-height: 85vh;
+
+    }
+
+    .main-layout-bg .login-box {
+        width: 80%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 50px 20px;
+        min-height: unset;
+    }
+
+    .loyalty-membership .loyalty-title-flex .logo-box img {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    body {
+        background: #34353a;
+    }
+
+    .main-layout-bg {
+
+        min-height: 85vh;
+
+    }
+
+    .main-layout-bg .login-box {
+        width: 80%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 50px 20px;
+        min-height: unset;
+    }
+
+    .loyalty-membership .loyalty-title-flex .logo-box img {
+        margin-left: 0;
+    }
+}
