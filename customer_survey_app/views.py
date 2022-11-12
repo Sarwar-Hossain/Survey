@@ -15,7 +15,7 @@ from random import randint
 cursor = connection.cursor()
 
 
-def login(request, message='', is_error=1):
+def login(request):
     try:
         # clear all session
         request.session.flush()
@@ -33,7 +33,7 @@ def login(request, message='', is_error=1):
                     if user.is_user_active:
                         request.session['user_name'] = user.user_name
                         messages.success(request, 'Login Successful!')
-                        return redirect('customer_survey_report')
+                        return render(request, 'customer_survey_app/customer-survey-report.html')
                     else:
                         messages.error(request, 'User isn\'t active!')
                         return render(request, 'customer_survey_app/log-in.html')
@@ -49,11 +49,6 @@ def login(request, message='', is_error=1):
                 else:
                     messages.error(request, 'User Credential Didn\'t Match!')
                     return render(request, 'customer_survey_app/log-in.html')
-        if message and is_error == 1:
-            return render(request, 'customer_survey_app/log-in.html')
-
-        elif message and is_error == 0:
-            return render(request, 'customer_survey_app/log-in.html')
         else:
             return render(request, 'customer_survey_app/log-in.html')
     except KeyError as e:
@@ -65,159 +60,159 @@ def login(request, message='', is_error=1):
 
 
 def customer_survey_report(request):
-    try:
-        if request.session.has_key('user_name'):
+    # try:
+    if request.session.has_key('user_name'):
+        cursor = connection.cursor()
+        # Question 1
+        cursor.execute('''SELECT 
+        sum(CASE WHEN csac.question_1 IS true THEN 1 ELSE 0 END) AS question_1_true_part,
+        sum(CASE WHEN  csac.question_1 IS false THEN 1 ELSE 0 END) AS question_1_false_part,
+        sum(CASE WHEN  csac.question_1 IS false THEN 1 ELSE 1 END) AS question_1_whole
+        FROM customer_survey_app_customerfeedback csac;''')
 
-            # Question 1
-            cursor.execute('''SELECT 
-            sum(CASE WHEN csac.question_1 IS true THEN 1 ELSE 0 END) AS question_1_true_part,
-            sum(CASE WHEN  csac.question_1 IS false THEN 1 ELSE 0 END) AS question_1_false_part,
-            sum(CASE WHEN  csac.question_1 IS false THEN 1 ELSE 1 END) AS question_1_whole
-            FROM customer_survey_app_customerfeedback csac;''')
+        result = cursor.fetchall()
 
-            result = cursor.fetchall()
+        row_headers = [col[0] for col in cursor.description]
+        data = [dict(zip(row_headers, row)) for row in result]
 
-            row_headers = [col[0] for col in cursor.description]
-            data = [dict(zip(row_headers, row)) for row in result]
+        question_1_true = get_percentage(data[0]['question_1_true_part'], data[0]['question_1_whole'])
+        question_1_false = get_percentage(data[0]['question_1_false_part'], data[0]['question_1_whole'])
 
-            question_1_true = get_percentage(data[0]['question_1_true_part'], data[0]['question_1_whole'])
-            question_1_false = get_percentage(data[0]['question_1_false_part'], data[0]['question_1_whole'])
+        # Question 2
+        cursor.execute(''' SELECT 
+        sum(CASE WHEN csac.question_2 = 'Friendly' THEN 1 ELSE 0 END) AS question_2_friendly_part,
+        sum(CASE WHEN csac.question_2 = 'Knowledgeable' THEN 1 ELSE 0 END) AS question_2_knowledgeable_part,
+        sum(CASE WHEN csac.question_2 = 'Helpful' THEN 1 ELSE 0 END) AS question_2_helpful_part,
+        sum(CASE WHEN csac.question_2 = 'Helpful' THEN 1 ELSE 1 END) AS question_2_whole
+        FROM customer_survey_app_customerfeedback csac; ''')
 
-            # Question 2
-            cursor.execute(''' SELECT 
-            sum(CASE WHEN csac.question_2 = 'Friendly' THEN 1 ELSE 0 END) AS question_2_friendly_part,
-            sum(CASE WHEN csac.question_2 = 'Knowledgeable' THEN 1 ELSE 0 END) AS question_2_knowledgeable_part,
-            sum(CASE WHEN csac.question_2 = 'Helpful' THEN 1 ELSE 0 END) AS question_2_helpful_part,
-            sum(CASE WHEN csac.question_2 = 'Helpful' THEN 1 ELSE 1 END) AS question_2_whole
-            FROM customer_survey_app_customerfeedback csac; ''')
+        result = cursor.fetchall()
 
-            result = cursor.fetchall()
+        row_headers = [col[0] for col in cursor.description]
+        data = [dict(zip(row_headers, row)) for row in result]
 
-            row_headers = [col[0] for col in cursor.description]
-            data = [dict(zip(row_headers, row)) for row in result]
+        question_2_friendly = get_percentage(data[0]['question_2_friendly_part'], data[0]['question_2_whole'])
+        question_2_knowledgeable = get_percentage(data[0]['question_2_knowledgeable_part'],
+                                                  data[0]['question_2_whole'])
+        question_2_helpful = get_percentage(data[0]['question_2_helpful_part'], data[0]['question_2_whole'])
 
-            question_2_friendly = get_percentage(data[0]['question_2_friendly_part'], data[0]['question_2_whole'])
-            question_2_knowledgeable = get_percentage(data[0]['question_2_knowledgeable_part'],
-                                                      data[0]['question_2_whole'])
-            question_2_helpful = get_percentage(data[0]['question_2_helpful_part'], data[0]['question_2_whole'])
+        # Question 3
+        cursor.execute(''' SELECT 
+        sum(CASE WHEN csac.question_3 = 'Slightly' THEN 1 ELSE 0 END) AS question_3_slightly_part,
+        sum(CASE WHEN csac.question_3 = 'Moderate' THEN 1 ELSE 0 END) AS question_3_moderate_part,
+        sum(CASE WHEN csac.question_3 = 'Strongly' THEN 1 ELSE 0 END) AS question_3_strongly_part,
+        sum(CASE WHEN csac.question_3 = 'Strongly' THEN 1 ELSE 1 END) AS question_3_whole
+        FROM customer_survey_app_customerfeedback csac; ''')
 
-            # Question 3
-            cursor.execute(''' SELECT 
-            sum(CASE WHEN csac.question_3 = 'Slightly' THEN 1 ELSE 0 END) AS question_3_slightly_part,
-            sum(CASE WHEN csac.question_3 = 'Moderate' THEN 1 ELSE 0 END) AS question_3_moderate_part,
-            sum(CASE WHEN csac.question_3 = 'Strongly' THEN 1 ELSE 0 END) AS question_3_strongly_part,
-            sum(CASE WHEN csac.question_3 = 'Strongly' THEN 1 ELSE 1 END) AS question_3_whole
-            FROM customer_survey_app_customerfeedback csac; ''')
+        result = cursor.fetchall()
 
-            result = cursor.fetchall()
+        row_headers = [col[0] for col in cursor.description]
+        data = [dict(zip(row_headers, row)) for row in result]
 
-            row_headers = [col[0] for col in cursor.description]
-            data = [dict(zip(row_headers, row)) for row in result]
+        question_3_slightly = get_percentage(data[0]['question_3_slightly_part'], data[0]['question_3_whole'])
+        question_3_moderate = get_percentage(data[0]['question_3_moderate_part'], data[0]['question_3_whole'])
+        question_3_strongly = get_percentage(data[0]['question_3_strongly_part'], data[0]['question_3_whole'])
 
-            question_3_slightly = get_percentage(data[0]['question_3_slightly_part'], data[0]['question_3_whole'])
-            question_3_moderate = get_percentage(data[0]['question_3_moderate_part'], data[0]['question_3_whole'])
-            question_3_strongly = get_percentage(data[0]['question_3_strongly_part'], data[0]['question_3_whole'])
+        # Question 4
+        cursor.execute(''' SELECT 
+        sum(CASE WHEN csac.question_4 IS true THEN 1 ELSE 0 END) AS question_4_true_part,
+        sum(CASE WHEN  csac.question_4 IS false THEN 1 ELSE 0 END) AS question_4_false_part,
+        sum(CASE WHEN  csac.question_4 IS false THEN 1 ELSE 1 END) AS question_4_whole
+        FROM customer_survey_app_customerfeedback csac; ''')
 
-            # Question 4
-            cursor.execute(''' SELECT 
-            sum(CASE WHEN csac.question_4 IS true THEN 1 ELSE 0 END) AS question_4_true_part,
-            sum(CASE WHEN  csac.question_4 IS false THEN 1 ELSE 0 END) AS question_4_false_part,
-            sum(CASE WHEN  csac.question_4 IS false THEN 1 ELSE 1 END) AS question_4_whole
-            FROM customer_survey_app_customerfeedback csac; ''')
+        result = cursor.fetchall()
 
-            result = cursor.fetchall()
+        row_headers = [col[0] for col in cursor.description]
+        data = [dict(zip(row_headers, row)) for row in result]
 
-            row_headers = [col[0] for col in cursor.description]
-            data = [dict(zip(row_headers, row)) for row in result]
+        question_4_true = get_percentage(data[0]['question_4_true_part'], data[0]['question_4_whole'])
+        question_4_false = get_percentage(data[0]['question_4_false_part'], data[0]['question_4_whole'])
 
-            question_4_true = get_percentage(data[0]['question_4_true_part'], data[0]['question_4_whole'])
-            question_4_false = get_percentage(data[0]['question_4_false_part'], data[0]['question_4_whole'])
+        # Question 5
+        cursor.execute(''' SELECT 
+        sum(CASE WHEN csac.question_5 IS true THEN 1 ELSE 0 END) AS question_5_true_part,
+        sum(CASE WHEN  csac.question_5 IS false THEN 1 ELSE 0 END) AS question_5_false_part,
+        sum(CASE WHEN  csac.question_5 IS false THEN 1 ELSE 1 END) AS question_5_whole
+        FROM customer_survey_app_customerfeedback csac; ''')
 
-            # Question 5
-            cursor.execute(''' SELECT 
-            sum(CASE WHEN csac.question_5 IS true THEN 1 ELSE 0 END) AS question_5_true_part,
-            sum(CASE WHEN  csac.question_5 IS false THEN 1 ELSE 0 END) AS question_5_false_part,
-            sum(CASE WHEN  csac.question_5 IS false THEN 1 ELSE 1 END) AS question_5_whole
-            FROM customer_survey_app_customerfeedback csac; ''')
+        result = cursor.fetchall()
 
-            result = cursor.fetchall()
+        row_headers = [col[0] for col in cursor.description]
+        data = [dict(zip(row_headers, row)) for row in result]
 
-            row_headers = [col[0] for col in cursor.description]
-            data = [dict(zip(row_headers, row)) for row in result]
+        question_5_true = get_percentage(data[0]['question_5_true_part'], data[0]['question_5_whole'])
+        question_5_false = get_percentage(data[0]['question_5_false_part'], data[0]['question_5_whole'])
 
-            question_5_true = get_percentage(data[0]['question_5_true_part'], data[0]['question_5_whole'])
-            question_5_false = get_percentage(data[0]['question_5_false_part'], data[0]['question_5_whole'])
+        # Question 6
+        cursor.execute(''' SELECT 
+        sum(CASE WHEN csac.question_6 = 'Small' THEN 1 ELSE 0 END) AS question_6_small_part,
+        sum(CASE WHEN csac.question_6 = 'Medium' THEN 1 ELSE 0 END) AS question_6_medium_part,
+        sum(CASE WHEN csac.question_6 = 'Large' THEN 1 ELSE 0 END) AS question_6_large_part,
+        sum(CASE WHEN csac.question_6 = 'Extra Large' THEN 1 ELSE 0 END) AS question_6_extra_large_part,
+        sum(CASE WHEN csac.question_6 = 'Extra Extra Large' THEN 1 ELSE 0 END) AS question_6_extra_extra_large_part,
+        sum(CASE WHEN csac.question_6 = 'Small' THEN 1 ELSE 1 END) AS question_6_whole
+        FROM customer_survey_app_customerfeedback csac; ''')
 
-            # Question 6
-            cursor.execute(''' SELECT 
-            sum(CASE WHEN csac.question_6 = 'Small' THEN 1 ELSE 0 END) AS question_6_small_part,
-            sum(CASE WHEN csac.question_6 = 'Medium' THEN 1 ELSE 0 END) AS question_6_medium_part,
-            sum(CASE WHEN csac.question_6 = 'Large' THEN 1 ELSE 0 END) AS question_6_large_part,
-            sum(CASE WHEN csac.question_6 = 'Extra Large' THEN 1 ELSE 0 END) AS question_6_extra_large_part,
-            sum(CASE WHEN csac.question_6 = 'Extra Extra Large' THEN 1 ELSE 0 END) AS question_6_extra_extra_large_part,
-            sum(CASE WHEN csac.question_6 = 'Small' THEN 1 ELSE 1 END) AS question_6_whole
-            FROM customer_survey_app_customerfeedback csac; ''')
+        result = cursor.fetchall()
 
-            result = cursor.fetchall()
+        row_headers = [col[0] for col in cursor.description]
+        data = [dict(zip(row_headers, row)) for row in result]
 
-            row_headers = [col[0] for col in cursor.description]
-            data = [dict(zip(row_headers, row)) for row in result]
+        question_6_small = get_percentage(data[0]['question_6_small_part'], data[0]['question_6_whole'])
+        question_6_medium = get_percentage(data[0]['question_6_medium_part'], data[0]['question_6_whole'])
+        question_6_large = get_percentage(data[0]['question_6_large_part'], data[0]['question_6_whole'])
+        question_6_extra_large = get_percentage(data[0]['question_6_extra_large_part'], data[0]['question_6_whole'])
+        question_6_extra_extra_large = get_percentage(data[0]['question_6_extra_extra_large_part'],
+                                                      data[0]['question_6_whole'])
 
-            question_6_small = get_percentage(data[0]['question_6_small_part'], data[0]['question_6_whole'])
-            question_6_medium = get_percentage(data[0]['question_6_medium_part'], data[0]['question_6_whole'])
-            question_6_large = get_percentage(data[0]['question_6_large_part'], data[0]['question_6_whole'])
-            question_6_extra_large = get_percentage(data[0]['question_6_extra_large_part'], data[0]['question_6_whole'])
-            question_6_extra_extra_large = get_percentage(data[0]['question_6_extra_extra_large_part'],
-                                                          data[0]['question_6_whole'])
+        # Question 7
+        cursor.execute(''' SELECT 
+        sum(CASE WHEN csac.question_7 = 'Black' THEN 1 ELSE 0 END) AS question_7_black_part,
+        sum(CASE WHEN csac.question_7 = 'White' THEN 1 ELSE 0 END) AS question_7_white_part,
+        sum(CASE WHEN csac.question_7 = 'Others' THEN 1 ELSE 0 END) AS question_7_others_part,
+        sum(CASE WHEN csac.question_7 = 'Others' THEN 1 ELSE 1 END) AS question_7_whole
+        FROM customer_survey_app_customerfeedback csac; ''')
 
-            # Question 7
-            cursor.execute(''' SELECT 
-            sum(CASE WHEN csac.question_7 = 'Black' THEN 1 ELSE 0 END) AS question_7_black_part,
-            sum(CASE WHEN csac.question_7 = 'White' THEN 1 ELSE 0 END) AS question_7_white_part,
-            sum(CASE WHEN csac.question_7 = 'Others' THEN 1 ELSE 0 END) AS question_7_others_part,
-            sum(CASE WHEN csac.question_7 = 'Others' THEN 1 ELSE 1 END) AS question_7_whole
-            FROM customer_survey_app_customerfeedback csac; ''')
+        result = cursor.fetchall()
 
-            result = cursor.fetchall()
+        row_headers = [col[0] for col in cursor.description]
+        data = [dict(zip(row_headers, row)) for row in result]
 
-            row_headers = [col[0] for col in cursor.description]
-            data = [dict(zip(row_headers, row)) for row in result]
+        question_7_black = get_percentage(data[0]['question_7_black_part'], data[0]['question_7_whole'])
+        question_7_white = get_percentage(data[0]['question_7_white_part'], data[0]['question_7_whole'])
+        question_7_others = get_percentage(data[0]['question_7_others_part'], data[0]['question_7_whole'])
 
-            question_7_black = get_percentage(data[0]['question_7_black_part'], data[0]['question_7_whole'])
-            question_7_white = get_percentage(data[0]['question_7_white_part'], data[0]['question_7_whole'])
-            question_7_others = get_percentage(data[0]['question_7_others_part'], data[0]['question_7_whole'])
-
-            context = {
-                'question_1_true': question_1_true,
-                'question_1_false': question_1_false,
-                'question_2_friendly': question_2_friendly,
-                'question_2_knowledgeable': question_2_knowledgeable,
-                'question_2_helpful': question_2_helpful,
-                'question_3_slightly': question_3_slightly,
-                'question_3_moderate': question_3_moderate,
-                'question_3_strongly': question_3_strongly,
-                'question_4_true': question_4_true,
-                'question_4_false': question_4_false,
-                'question_5_true': question_5_true,
-                'question_5_false': question_5_false,
-                'question_6_small': question_6_small,
-                'question_6_medium': question_6_medium,
-                'question_6_large': question_6_large,
-                'question_6_extra_large': question_6_extra_large,
-                'question_6_extra_extra_large': question_6_extra_extra_large,
-                'question_7_black': question_7_black,
-                'question_7_white': question_7_white,
-                'question_7_others': question_7_others,
-            }
-            return render(request, 'customer_survey_app/customer-survey-report.html', context)
-        else:
-            return redirect('login')
-    except KeyError as e:
-        print(e)
+        context = {
+            'question_1_true': question_1_true,
+            'question_1_false': question_1_false,
+            'question_2_friendly': question_2_friendly,
+            'question_2_knowledgeable': question_2_knowledgeable,
+            'question_2_helpful': question_2_helpful,
+            'question_3_slightly': question_3_slightly,
+            'question_3_moderate': question_3_moderate,
+            'question_3_strongly': question_3_strongly,
+            'question_4_true': question_4_true,
+            'question_4_false': question_4_false,
+            'question_5_true': question_5_true,
+            'question_5_false': question_5_false,
+            'question_6_small': question_6_small,
+            'question_6_medium': question_6_medium,
+            'question_6_large': question_6_large,
+            'question_6_extra_large': question_6_extra_large,
+            'question_6_extra_extra_large': question_6_extra_extra_large,
+            'question_7_black': question_7_black,
+            'question_7_white': question_7_white,
+            'question_7_others': question_7_others,
+        }
+        return render(request, 'customer_survey_app/customer-survey-report.html', context)
+    else:
         return redirect('login')
-    except Exception as e:
-        print(e)
-        return redirect('login')
+    # except KeyError as e:
+    #     print(e)
+    #     return redirect('login')
+    # except Exception as e:
+    #     print(e)
+    #     return redirect('login')
 
 
 def create_shop_user(request):
@@ -380,7 +375,7 @@ def loylity_member_save(request):
 
                 # RISE Customer Save POST API
                 url = os.environ.get("URL",
-                                     'http://192.168.1.4/CloudPOS_Rise/api/saveCustomer?api_key=ms%3Atf42%2BQsVrA%2B0QF9iKfd4ng%3D%3D')
+                                     'http://risesrv.rise-brand.com/Rise/api/saveCustomer?api_key=ms%3Atf42%2BQsVrA%2B0QF9iKfd4ng%3D%3D')
                 url = "%s" % url
                 json_body = {
                     "CUSTOMER_ID": member_ship_no,
@@ -517,8 +512,12 @@ def show_comments(request):
 
 
 def logout(request):
-    request.session.clear()
-    return redirect('login')
+    try:
+        request.session.flush()
+        return redirect('login')
+    except Exception as e:
+        print(e)
+        return render(request, 'customer_survey_app/log-in.html', )
 
 
 # Delete User

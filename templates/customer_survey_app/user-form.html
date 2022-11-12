@@ -135,59 +135,67 @@
             <h1 class="text-center">Shop Users</h1>
             <div class="card">
                 <div class="card-body">
-                   <div class="table-responsive">
+                    <div class="table-responsive">
                         <table id="users_status" class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>User Name</th>
-                            <th>Mobile No</th>
-                            <th>Shop Email Id</th>
-                            <th>Shop Name</th>
-                            <th>Status</th>
-                            <th>Select User</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for user in shop_users %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ user.user_name }}</td>
-                            <td>{{ user.mobile_no }}</td>
-                            <td>{{ user.email }}</td>
-                            <td>{{ user.shop_name }}</td>
-                            <td>
-                                <form method="post">
-                                    {% csrf_token %}
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>User Name</th>
+                                <th>Mobile No</th>
+                                <th>Shop Email Id</th>
+                                <th>Shop Name</th>
+                                <th>Status</th>
+                                <th>Active/Deactivate</th>
+                                <th>Select User</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for user in shop_users %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ user.user_name }}</td>
+                                <td>{{ user.mobile_no }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.shop_name }}</td>
+                                <td>
                                     {% if user.is_user_active == 1 %}
-                                    <input type="hidden" name="user_id" value="{{ user.id }}">
-                                    <button name="user_deactivate" type="submit"
-                                            class="btn btn-danger" value="{{ user.id }}">
-                                        Deactivate
-                                    </button>
+                                    Active
                                     {% else %}
-                                    <button name="user_activate" type="submit"
-                                            class="btn btn-success" value="{{ user.id }}">
-                                        Activate
-                                    </button>
+                                    Inactive
                                     {% endif %}
-                                </form>
-                            </td>
-                            <td>
-                                <form method="post">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="user_id" value="{{ user.id }}">
-                                    <button name="button_select" type="submit"
-                                            class="btn btn-info" value="{{ user.id }}">
-                                        Select
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                   </div>
+                                </td>
+                                <td>
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        {% if user.is_user_active == 1 %}
+                                        <input type="hidden" name="user_id" value="{{ user.id }}">
+                                        <button name="user_deactivate" type="submit"
+                                                class="btn btn-danger" value="{{ user.id }}">
+                                            Deactivate
+                                        </button>
+                                        {% else %}
+                                        <button name="user_activate" type="submit"
+                                                class="btn btn-success" value="{{ user.id }}">
+                                            Activate
+                                        </button>
+                                        {% endif %}
+                                    </form>
+                                </td>
+                                <td>
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="user_id" value="{{ user.id }}">
+                                        <button name="button_select" type="submit"
+                                                class="btn btn-info" value="{{ user.id }}">
+                                            Select
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="col-12 text-center">
                     <form action="">
