@@ -5,7 +5,7 @@
       <paths name="National Server">
         <serverdata>
           <mappings>
-            <mapping deploy="/customer_feedback_survey" local="$PROJECT_DIR$" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
